@@ -2,19 +2,43 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Emoji Search</title>
+  <title>Emoji Search Pro</title>
+
+  <!-- FIX favicon error -->
+  <link rel="icon" href="data:,">
+
+  <!-- Google Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
+
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-  <h1>Emoji Search 🔍</h1>
+<header>
+  <h1>✨ Emoji Search</h1>
 
-  <input type="text" id="search" placeholder="Search emoji..." />
+  <div class="controls">
+    <input type="text" id="search" placeholder="Search emojis..." />
+    
+    <select id="category">
+      <option value="all">All</option>
+      <option value="Smileys & Emotion">Smileys</option>
+      <option value="People & Body">People</option>
+      <option value="Animals & Nature">Nature</option>
+      <option value="Food & Drink">Food</option>
+    </select>
 
-  <div id="container"></div>
+    <button id="toggleTheme">🌙</button>
+  </div>
+</header>
 
-  <script src="emojiList.js"></script>
-  <script src="script.js"></script>
+<div id="container"></div>
+
+<!-- Toast -->
+<div id="toast">Copied ✅</div>
+
+<script src="emojiList.js"></script>
+<script src="script.js"></script>
 
 </body>
 </html>

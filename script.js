@@ -1,10 +1,10 @@
 const container = document.getElementById("container");
 const search = document.getElementById("search");
+const category = document.getElementById("category");
+const toast = document.getElementById("toast");
+const toggleTheme = document.getElementById("toggleTheme");
 
-// show all emojis initially
-display(emojiList);
-
-// function to display emojis
+// show emojis
 function display(list) {
   container.innerHTML = "";
 
@@ -17,30 +17,52 @@ function display(list) {
       <p>${e.description}</p>
     `;
 
-    // 🔥 Copy emoji on click
-    card.addEventListener("click", () => {
+    // copy emoji
+    card.onclick = () => {
       navigator.clipboard.writeText(e.emoji);
-      alert("Copied: " + e.emoji);
-    });
+      showToast();
+    };
 
     container.appendChild(card);
   });
 }
 
-// search functionality
-search.addEventListener("input", () => {
-  const value = search.value.toLowerCase();
+// toast
+function showToast() {
+  toast.classList.add("show");
+  setTimeout(() => toast.classList.remove("show"), 1500);
+}
 
-  const filtered = emojiList.filter(e =>
-    e.description.toLowerCase().includes(value) ||
-    e.category.toLowerCase().includes(value) ||
-    e.aliases.join(" ").toLowerCase().includes(value)
-  );
+// filter
+function filterEmoji() {
+  const text = search.value.toLowerCase();
+  const cat = category.value;
 
-  // show no result
+  const filtered = emojiList.filter(e => {
+    const matchText =
+      e.description.toLowerCase().includes(text) ||
+      e.aliases.join(" ").includes(text);
+
+    const matchCat = cat === "all" || e.category === cat;
+
+    return matchText && matchCat;
+  });
+
   if (filtered.length === 0) {
     container.innerHTML = "<h2>No emoji found 😢</h2>";
   } else {
     display(filtered);
   }
-});
+}
+
+// events
+search.addEventListener("input", filterEmoji);
+category.addEventListener("change", filterEmoji);
+
+// dark mode
+toggleTheme.onclick = () => {
+  document.body.classList.toggle("dark");
+};
+
+// init
+display(emojiList);
