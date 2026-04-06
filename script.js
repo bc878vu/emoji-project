@@ -1,39 +1,46 @@
-let data = emojiList;
+const container = document.getElementById("container");
+const search = document.getElementById("search");
 
-window.onload = () => {
-  displayEmojis(data);
-};
+// show all emojis initially
+display(emojiList);
 
-function displayEmojis(list) {
-  let container = document.getElementById("emoji-container");
+// function to display emojis
+function display(list) {
   container.innerHTML = "";
 
   list.forEach(e => {
-    let div = document.createElement("div");
-    div.className = "emoji-card";
+    const card = document.createElement("div");
+    card.className = "card";
 
-    div.innerHTML = `
-      <h2>${e.emoji}</h2>
+    card.innerHTML = `
+      <span>${e.emoji}</span>
       <p>${e.description}</p>
     `;
 
-    div.addEventListener("click", () => {
+    // 🔥 Copy emoji on click
+    card.addEventListener("click", () => {
       navigator.clipboard.writeText(e.emoji);
-      alert("Copied " + e.emoji);
+      alert("Copied: " + e.emoji);
     });
 
-    container.appendChild(div);
+    container.appendChild(card);
   });
 }
 
-document.getElementById("search").addEventListener("input", function () {
-  let value = this.value.toLowerCase();
+// search functionality
+search.addEventListener("input", () => {
+  const value = search.value.toLowerCase();
 
-  let filtered = data.filter(e =>
-    e.description.includes(value) ||
-    e.aliases.join(",").includes(value) ||
-    e.tags.join(",").includes(value)
+  const filtered = emojiList.filter(e =>
+    e.description.toLowerCase().includes(value) ||
+    e.category.toLowerCase().includes(value) ||
+    e.aliases.join(" ").toLowerCase().includes(value)
   );
 
-  displayEmojis(filtered);
+  // show no result
+  if (filtered.length === 0) {
+    container.innerHTML = "<h2>No emoji found 😢</h2>";
+  } else {
+    display(filtered);
+  }
 });
