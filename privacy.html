@@ -4,50 +4,67 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Privacy Policy - EmojiSaaS</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
 <nav class="navbar">
-  <div class="nav-left">
-    <a href="index.html" style="text-decoration:none; display:flex; align-items:center; gap:10px; color:inherit;">
-      <span class="logo">✨</span>
-      <span class="title">EmojiSaaS</span>
-    </a>
-  </div>
-  <div class="nav-right">
-    <a href="index.html" class="nav-link">Home</a>
-    <button id="themeToggle">🌙</button>
+  <div class="nav-container">
+    <div class="nav-left">
+      <div class="logo-group" onclick="location.href='index.html'">
+        <span class="logo">✨</span>
+        <span class="title">EmojiSaaS</span>
+      </div>
+    </div>
+    <div class="nav-right">
+      <div class="nav-links-desktop">
+        <a href="index.html" class="nav-link">Home</a>
+        <a href="terms.html" class="nav-link">Terms</a>
+      </div>
+      <button id="themeToggle" class="theme-btn">🌙</button>
+    </div>
   </div>
 </nav>
 
-<div class="main-wrapper">
-  <div class="static-page">
+<div class="content-wrapper">
+  <div class="legal-box">
     <h1>Privacy Policy</h1>
-    <p>Your privacy is important to us. Here is how we handle your data.</p>
-    
-    <h3>1. Data Collection</h3>
-    <p>We do not collect any personal identification information. We do not require account creation or login to use our core features.</p>
-    
-    <h3>2. Local Storage</h3>
-    <p>Your "Favorites" and "Recent" emojis are stored locally on your device's browser using <strong>LocalStorage</strong>. This data never leaves your computer and is not accessible by us.</p>
-    
-    <h3>3. Third-Party Services</h3>
-    <p>We use Google Fonts to provide a better visual experience. No other third-party tracking or advertising scripts are used.</p>
-    
-    <h3>4. Changes to Policy</h3>
-    <p>We reserve the right to update this policy at any time. Changes will be reflected on this page immediately.</p>
+    <p class="subtitle">Last updated: April 2026</p>
+    <hr>
+    <div class="legal-content">
+      <h3>1. Information We Do NOT Collect</h3>
+      <p>EmojiSaaS is designed with privacy in mind. We do not collect names, email addresses, or any personal identification data. There is no account registration required.</p>
+
+      <h3>2. Browser Storage (LocalStorage)</h3>
+      <p>We use LocalStorage on your device to store your "Favorites", "Recent" history, and "Theme Preference" (Dark/Light). This data stays entirely on your device and is never uploaded to our servers.</p>
+
+      <h3>3. Third-Party Services</h3>
+      <p>We use Google Fonts to provide a professional typography experience. No other third-party tracking, cookies, or advertisement scripts are used on this platform.</p>
+
+      <h3>4. Data Security</h3>
+      <p>Since we do not store your data on any server, your information is as secure as your own computer or mobile device. Clearing your browser cache will remove your favorites and recent history.</p>
+
+      <h3>5. Contact Us</h3>
+      <p>If you have any questions regarding this policy, feel free to contact us through the portfolio links provided in the footer.</p>
+    </div>
   </div>
 </div>
 
 <footer>
-  <p>© 2026 EmojiSaaS • Privacy Policy Page</p>
+  <div class="footer-container">
+    <div class="footer-info">
+      <span class="footer-logo">✨ EmojiSaaS</span>
+      <p>© 2026 Professional Portfolio Project</p>
+    </div>
+    <div class="footer-nav">
+      <a href="index.html">Home</a>
+      <a href="terms.html">Terms</a>
+      <a href="privacy.html">Privacy</a>
+    </div>
+  </div>
 </footer>
 
-<script>
-  document.getElementById("themeToggle").onclick = () => {
-    document.body.classList.toggle("dark");
-  };
-</script>
+<script src="script.js"></script>
 </body>
 </html>

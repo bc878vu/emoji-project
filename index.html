@@ -3,26 +3,26 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>EmojiSaaS | Modern Emoji Library</title>
+  <title>EmojiSaaS | Premium Emoji Library</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
 </head>
-<body>
+<body class="home-page">
 
 <nav class="navbar">
   <div class="nav-container">
     <div class="nav-left">
-      <div class="logo-group">
+      <div class="logo-group" onclick="location.href='index.html'">
         <span class="logo">✨</span>
         <span class="title">EmojiSaaS</span>
       </div>
     </div>
 
     <div class="nav-center">
-      <div class="search-box">
-        <input type="text" id="search" placeholder="Search emojis..." />
+      <div class="search-wrapper">
+        <input type="text" id="search" placeholder="Search emojis..." autocomplete="off">
         <div class="dropdown">
-          <button id="dropBtn">All Categories ⌄</button>
+          <button id="dropBtn">All ⌄</button>
           <div id="dropMenu" class="menu">
             <div data-cat="all">All Emojis</div>
             <div data-cat="Smileys & Emotion">Smileys</div>
@@ -30,7 +30,6 @@
             <div data-cat="Animals & Nature">Nature</div>
             <div data-cat="Food & Drink">Food</div>
             <div data-cat="Activities">Activities</div>
-            <div data-cat="Objects">Objects</div>
             <div data-cat="Symbols">Symbols</div>
           </div>
         </div>
@@ -38,21 +37,23 @@
     </div>
 
     <div class="nav-right">
-      <a href="terms.html" class="nav-link">Terms</a>
-      <a href="privacy.html" class="nav-link">Privacy</a>
+      <div class="nav-links-desktop">
+        <a href="terms.html" class="nav-link">Terms</a>
+        <a href="privacy.html" class="nav-link">Privacy</a>
+      </div>
       <button id="themeToggle" class="theme-btn">🌙</button>
     </div>
   </div>
 </nav>
 
 <div class="content-wrapper">
-  <header class="hero">
-    <h1>Find the Perfect Emoji</h1>
-    <p>Click to copy, right-click to favorite.</p>
+  <header class="hero-section">
+    <h1>Express Yourself with Emojis</h1>
+    <p>Premium collection for developers and designers.</p>
   </header>
 
-  <div class="tabs">
-    <button class="tab active" data-tab="all">🚀 All</button>
+  <div class="tabs-container">
+    <button class="tab active" data-tab="all">All</button>
     <button class="tab" data-tab="favorites">⭐ Favorites</button>
     <button class="tab" data-tab="recent">🕒 Recent</button>
   </div>
@@ -60,15 +61,18 @@
   <main id="container" class="emoji-grid"></main>
 </div>
 
-<div id="toast">Copied to Clipboard! 🚀</div>
+<div id="toast">Copied! 🚀</div>
 
 <footer>
-  <div class="footer-content">
-    <div class="footer-brand">✨ EmojiSaaS</div>
-    <p>© 2026 Professional Portfolio Project. All Rights Reserved.</p>
-    <div class="footer-links">
-      <a href="terms.html">Terms</a>
-      <a href="privacy.html">Privacy</a>
+  <div class="footer-container">
+    <div class="footer-info">
+      <span class="footer-logo">✨ EmojiSaaS</span>
+      <p>© 2026 Professional Portfolio Project</p>
+    </div>
+    <div class="footer-nav">
+      <a href="index.html">Home</a>
+      <a href="terms.html">Terms of Service</a>
+      <a href="privacy.html">Privacy Policy</a>
     </div>
   </div>
 </footer>

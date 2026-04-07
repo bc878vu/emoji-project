@@ -8,32 +8,61 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
+
 <nav class="navbar">
   <div class="nav-container">
-    <div class="nav-left"><div class="logo-group" onclick="location.href='index.html'"><span class="logo">✨</span><span class="title">EmojiSaaS</span></div></div>
+    <div class="nav-left">
+      <div class="logo-group" onclick="location.href='index.html'">
+        <span class="logo">✨</span>
+        <span class="title">EmojiSaaS</span>
+      </div>
+    </div>
     <div class="nav-right">
-      <a href="index.html" class="nav-link">Home</a>
+      <div class="nav-links-desktop">
+        <a href="index.html" class="nav-link">Home</a>
+        <a href="privacy.html" class="nav-link">Privacy</a>
+      </div>
       <button id="themeToggle" class="theme-btn">🌙</button>
     </div>
   </div>
 </nav>
 
 <div class="content-wrapper">
-  <div class="legal-container">
+  <div class="legal-box">
     <h1>Terms & Conditions</h1>
-    <p>Last updated: April 2026</p>
+    <p class="subtitle">Last updated: April 2026</p>
     <hr>
-    <h3>1. Usage Policy</h3>
-    <p>EmojiSaaS provides a collection of Unicode emojis. These can be used for personal and professional projects without attribution, though it is appreciated.</p>
-    <h3>2. No Data Misuse</h3>
-    <p>You may not use bots to crawl or scrape the entire database in a way that degrades the service for others.</p>
-    <h3>3. Content Disclaimer</h3>
-    <p>Emojis are rendered based on your operating system. Appearance may vary between iOS, Android, and Windows.</p>
+    <div class="legal-content">
+      <h3>1. Agreement to Terms</h3>
+      <p>By accessing EmojiSaaS, you agree to be bound by these Terms of Service. If you do not agree, please do not use the application.</p>
+
+      <h3>2. Content Usage</h3>
+      <p>All emojis provided are standard Unicode characters. You are free to use them in your personal and commercial projects. No attribution is required, but it is always appreciated.</p>
+
+      <h3>3. Prohibited Activities</h3>
+      <p>Users are strictly prohibited from using automated scripts, bots, or scrapers to harvest data from this site. Any attempt to disrupt the service will result in a permanent IP block.</p>
+
+      <h3>4. Service Changes</h3>
+      <p>We reserve the right to modify or discontinue any part of the service without notice. We are not liable for any technical rendering issues on different operating systems.</p>
+
+      <h3>5. Disclaimer</h3>
+      <p>This service is provided "as is" for portfolio and educational purposes. We do not guarantee 100% uptime or compatibility with all legacy browsers.</p>
+    </div>
   </div>
 </div>
 
 <footer>
-  <p>© 2026 EmojiSaaS • Legal Department</p>
+  <div class="footer-container">
+    <div class="footer-info">
+      <span class="footer-logo">✨ EmojiSaaS</span>
+      <p>© 2026 Professional Portfolio Project</p>
+    </div>
+    <div class="footer-nav">
+      <a href="index.html">Home</a>
+      <a href="terms.html">Terms</a>
+      <a href="privacy.html">Privacy</a>
+    </div>
+  </div>
 </footer>
 
 <script src="script.js"></script>
