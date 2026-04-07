@@ -35,13 +35,42 @@ self.addEventListener("activate", (e) => {
       )
     )
   );
+
+  // ✅ TAKE CONTROL FAST
+  self.clients.claim();
 });
 
 /* ================= FETCH ================= */
 self.addEventListener("fetch", (e) => {
   e.respondWith(
     caches.match(e.request).then(res => {
-      return res || fetch(e.request);
+
+      // ✅ CACHE HIT (FAST)
+      if (res) {
+        return res;
+      }
+
+      // ✅ NETWORK + CACHE SAVE
+      return fetch(e.request)
+        .then(response => {
+
+          // clone for cache
+          const responseClone = response.clone();
+
+          caches.open(CACHE_NAME).then(cache => {
+            cache.put(e.request, responseClone);
+          });
+
+          return response;
+        })
+        .catch(() => {
+
+          // ✅ OFFLINE FALLBACK (OPTIONAL SAFE)
+          if (e.request.mode === "navigate") {
+            return caches.match("./index.html");
+          }
+        });
+
     })
   );
 });

@@ -30,9 +30,11 @@ function display(list) {
     card.className = "card";
     card.title = "Click to Copy | Right Click to Favorite";
 
+    // ✅ UPDATED UI (NO REMOVE — ONLY ADD)
     card.innerHTML = `
       <span>${e.emoji}</span>
       <p>${e.description}</p>
+      ${currentTab !== "all" ? `<div class="remove-btn">❌</div>` : ""}
     `;
 
     /* COPY */
@@ -40,7 +42,6 @@ function display(list) {
       navigator.clipboard.writeText(e.emoji);
       showToast(`Copied ${e.emoji}`);
 
-      // ⚡ FAST RECENT UPDATE
       recent = [e, ...recent.filter(item => item.emoji !== e.emoji)].slice(0, 30);
       localStorage.setItem("recent", JSON.stringify(recent));
 
@@ -62,6 +63,38 @@ function display(list) {
       }
     };
 
+    /* ✅ REMOVE BUTTON */
+    if (currentTab !== "all") {
+      card.querySelector(".remove-btn").onclick = (ev) => {
+        ev.stopPropagation();
+
+        if (currentTab === "favorites") {
+          favorites = favorites.filter(item => item.emoji !== e.emoji);
+          localStorage.setItem("fav", JSON.stringify(favorites));
+        }
+
+        if (currentTab === "recent") {
+          recent = recent.filter(item => item.emoji !== e.emoji);
+          localStorage.setItem("recent", JSON.stringify(recent));
+        }
+
+        showToast("Removed ❌");
+        filterEmoji();
+      };
+    }
+
+    /* ✅ LONG PRESS DELETE */
+    let pressTimer;
+
+    card.onmousedown = () => {
+      pressTimer = setTimeout(() => {
+        showDeletePopup(e);
+      }, 800);
+    };
+
+    card.onmouseup = () => clearTimeout(pressTimer);
+    card.onmouseleave = () => clearTimeout(pressTimer);
+
     fragment.appendChild(card);
   });
 
@@ -77,7 +110,6 @@ function filterEmoji() {
 
   const searchTerm = search.value.toLowerCase();
 
-  // ⚡ OPTIMIZED FILTER (FASTER)
   const filtered = list.filter(e =>
     (e.description.toLowerCase().includes(searchTerm) ||
      (e.tags && e.tags.some(t => t.toLowerCase().includes(searchTerm))))
@@ -115,10 +147,40 @@ document.querySelectorAll(".tab").forEach(btn => {
     btn.classList.add("active");
     currentTab = btn.dataset.tab;
 
+    // ✅ SHOW CLEAR BUTTON
+    const clearBtn = document.getElementById("clearRecent");
+    if (clearBtn) {
+      clearBtn.style.display = currentTab === "recent" ? "block" : "none";
+    }
+
     showSection("main-app");
     filterEmoji();
   };
 });
+
+/* ================= CLEAR RECENT ================= */
+function clearRecent() {
+  recent = [];
+  localStorage.setItem("recent", JSON.stringify(recent));
+  showToast("History Cleared 🗑️");
+  filterEmoji();
+}
+
+/* ================= DELETE POPUP ================= */
+function showDeletePopup(emoji) {
+  const confirmDelete = confirm(`Remove ${emoji.emoji}?`);
+
+  if (!confirmDelete) return;
+
+  favorites = favorites.filter(e => e.emoji !== emoji.emoji);
+  recent = recent.filter(e => e.emoji !== emoji.emoji);
+
+  localStorage.setItem("fav", JSON.stringify(favorites));
+  localStorage.setItem("recent", JSON.stringify(recent));
+
+  showToast("Deleted 🗑️");
+  filterEmoji();
+}
 
 /* ================= DROPDOWN ================= */
 dropBtn.onclick = (e) => {
@@ -139,7 +201,6 @@ document.querySelectorAll(".menu div").forEach(item => {
   };
 });
 
-// ⚡ SMART CLOSE (ONLY WHEN OPEN)
 window.onclick = () => {
   if (dropMenu.style.display === "block") {
     dropMenu.style.display = "none";
@@ -160,8 +221,6 @@ function showToast(msg) {
 }
 
 /* ================= THEME ================= */
-
-// ⚡ LOAD FAST (NO FLICKER)
 (function initTheme() {
   try {
     const savedTheme = localStorage.getItem("theme");
@@ -175,7 +234,6 @@ function showToast(msg) {
   } catch (e) {}
 })();
 
-// ⚡ TOGGLE (FAST)
 themeBtn.onclick = () => {
   const isDark = document.body.classList.toggle("dark");
 
@@ -185,8 +243,6 @@ themeBtn.onclick = () => {
 };
 
 /* ================= SEARCH ================= */
-
-// ⚡ BETTER DEBOUNCE
 let debounceTimer;
 search.addEventListener("input", () => {
   clearTimeout(debounceTimer);
@@ -194,8 +250,6 @@ search.addEventListener("input", () => {
 });
 
 /* ================= INIT ================= */
-
-// ⚡ FAST LOAD (NO BLOCK)
 window.addEventListener("DOMContentLoaded", () => {
   display(emojiList);
 });

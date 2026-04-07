@@ -373,3 +373,47 @@ input#search:focus {
   opacity: 1;
   bottom: 50px;
 }
+
+
+/* ================= ✅ NEW ADDITIONS ================= */
+
+/* MOBILE SEARCH FIX */
+@media (max-width: 600px) {
+  .nav-center {
+    display: block !important;
+    max-width: 200px;
+  }
+
+  .nav-right .nav-link {
+    display: none;
+  }
+}
+
+/* REMOVE BUTTON */
+.remove-btn {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  background: #ef4444;
+  color: white;
+  font-size: 12px;
+  padding: 3px 6px;
+  border-radius: 6px;
+  cursor: pointer;
+
+  opacity: 0;
+}
+
+.card:hover .remove-btn {
+  opacity: 1;
+}
+
+/* CLEAR BUTTON */
+#clearRecent button {
+  background: linear-gradient(135deg, #ef4444, #dc2626);
+  border: none;
+  padding: 8px 16px;
+  border-radius: 20px;
+  color: white;
+  cursor: pointer;
+}
