@@ -1,30 +1,53 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-<title>Terms</title>
-<link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Terms & Conditions - EmojiSaaS</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-<main style="margin-left:0;padding:40px;">
-<h1>Terms & Conditions</h1>
+<nav class="navbar">
+  <div class="nav-left">
+    <a href="index.html" style="text-decoration:none; display:flex; align-items:center; gap:10px; color:inherit;">
+      <span class="logo">✨</span>
+      <span class="title">EmojiSaaS</span>
+    </a>
+  </div>
+  <div class="nav-right">
+    <a href="index.html" class="nav-link">Home</a>
+    <button id="themeToggle">🌙</button>
+  </div>
+</nav>
 
-<p>This platform is created for educational and portfolio purposes.</p>
-
-<h2>Usage</h2>
-<p>You may freely use emojis provided.</p>
-
-<h2>Restrictions</h2>
-<p>Do not misuse the platform.</p>
-
-<h2>Changes</h2>
-<p>Terms may update anytime.</p>
-
-</main>
+<div class="main-wrapper">
+  <div class="static-page">
+    <h1>Terms & Conditions</h1>
+    <p>Welcome to EmojiSaaS. By accessing this website, you agree to these terms.</p>
+    
+    <h3>1. License to Use</h3>
+    <p>We grant you a personal, non-exclusive license to copy and use the emojis provided on this platform for your personal or commercial projects.</p>
+    
+    <h3>2. User Conduct</h3>
+    <p>Users are prohibited from attempting to reverse engineer the platform or using automated bots to scrape our emoji collection excessively.</p>
+    
+    <h3>3. Intellectual Property</h3>
+    <p>The design, code, and branding of EmojiSaaS are the property of the developer. Emojis themselves are subject to their respective Unicode licenses.</p>
+    
+    <h3>4. Limitation of Liability</h3>
+    <p>EmojiSaaS is provided "as is" without any warranties. We are not responsible for any technical issues or data loss that may occur while using this site.</p>
+  </div>
+</div>
 
 <footer>
-© 2026 EmojiSaaS • Terms
+  <p>© 2026 EmojiSaaS • Terms & Conditions Page</p>
 </footer>
 
+<script>
+  document.getElementById("themeToggle").onclick = () => {
+    document.body.classList.toggle("dark");
+  };
+</script>
 </body>
 </html>

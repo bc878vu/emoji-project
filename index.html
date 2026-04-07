@@ -1,33 +1,23 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>Emoji SaaS</title>
-
-<link rel="icon" href="data:,">
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
-
-<link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EmojiSaaS - Home</title>
+  <link rel="icon" href="data:,">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
 
-<!-- NAVBAR -->
 <nav class="navbar">
-
-  <div class="nav-right">
-    <button id="themeToggle">🌙</button>
-  </div>
-
   <div class="nav-left">
     <span class="logo">✨</span>
     <span class="title">EmojiSaaS</span>
   </div>
 
   <div class="nav-center">
-
     <input type="text" id="search" placeholder="Search emojis..." />
-
     <div class="dropdown">
       <button id="dropBtn">All ⌄</button>
       <div id="dropMenu" class="menu">
@@ -38,30 +28,36 @@
         <div data-cat="Food & Drink">Food</div>
       </div>
     </div>
-
   </div>
 
+  <div class="nav-right">
+    <a href="terms.html" class="nav-link">Terms</a>
+    <a href="privacy.html" class="nav-link">Privacy</a>
+    <button id="themeToggle">🌙</button>
+  </div>
 </nav>
 
-<!-- TABS -->
-<div class="tabs">
-  <button class="tab active" data-tab="all">All</button>
-  <button class="tab" data-tab="favorites">⭐ Favorites</button>
-  <button class="tab" data-tab="recent">🕒 Recent</button>
+<div class="main-wrapper">
+  <div class="tabs">
+    <button class="tab active" data-tab="all">All</button>
+    <button class="tab" data-tab="favorites">⭐ Favorites</button>
+    <button class="tab" data-tab="recent">🕒 Recent</button>
+  </div>
+
+  <main id="container"></main>
 </div>
 
-<!-- MAIN -->
-<main id="container"></main>
-
-<!-- TOAST -->
 <div id="toast">Copied ✔</div>
 
 <footer>
   <p>© 2026 EmojiSaaS • Built for portfolio 🚀</p>
+  <div class="footer-links">
+    <a href="terms.html">Terms & Conditions</a> | 
+    <a href="privacy.html">Privacy Policy</a>
+  </div>
 </footer>
 
 <script src="emojiList.js"></script>
 <script src="script.js"></script>
-
 </body>
 </html>

@@ -1,27 +1,53 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-<title>Privacy</title>
-<link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Privacy Policy - EmojiSaaS</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-<main style="margin-left:0;padding:40px;">
-<h1>Privacy Policy</h1>
+<nav class="navbar">
+  <div class="nav-left">
+    <a href="index.html" style="text-decoration:none; display:flex; align-items:center; gap:10px; color:inherit;">
+      <span class="logo">✨</span>
+      <span class="title">EmojiSaaS</span>
+    </a>
+  </div>
+  <div class="nav-right">
+    <a href="index.html" class="nav-link">Home</a>
+    <button id="themeToggle">🌙</button>
+  </div>
+</nav>
 
-<p>No personal data collected.</p>
-
-<h2>Local Storage</h2>
-<p>Favorites stored locally.</p>
-
-<h2>Security</h2>
-<p>Your data stays in your browser.</p>
-
-</main>
+<div class="main-wrapper">
+  <div class="static-page">
+    <h1>Privacy Policy</h1>
+    <p>Your privacy is important to us. Here is how we handle your data.</p>
+    
+    <h3>1. Data Collection</h3>
+    <p>We do not collect any personal identification information. We do not require account creation or login to use our core features.</p>
+    
+    <h3>2. Local Storage</h3>
+    <p>Your "Favorites" and "Recent" emojis are stored locally on your device's browser using <strong>LocalStorage</strong>. This data never leaves your computer and is not accessible by us.</p>
+    
+    <h3>3. Third-Party Services</h3>
+    <p>We use Google Fonts to provide a better visual experience. No other third-party tracking or advertising scripts are used.</p>
+    
+    <h3>4. Changes to Policy</h3>
+    <p>We reserve the right to update this policy at any time. Changes will be reflected on this page immediately.</p>
+  </div>
+</div>
 
 <footer>
-© 2026 EmojiSaaS • Privacy
+  <p>© 2026 EmojiSaaS • Privacy Policy Page</p>
 </footer>
 
+<script>
+  document.getElementById("themeToggle").onclick = () => {
+    document.body.classList.toggle("dark");
+  };
+</script>
 </body>
 </html>
