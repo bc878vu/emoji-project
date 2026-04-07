@@ -253,3 +253,60 @@ search.addEventListener("input", () => {
 window.addEventListener("DOMContentLoaded", () => {
   display(emojiList);
 });
+
+/* ================= AUTO INSTALL PROMPT ================= */
+
+let deferredPrompt;
+
+window.addEventListener("beforeinstallprompt", (e) => {
+  e.preventDefault();
+  deferredPrompt = e;
+
+  // 🔥 AUTO TOAST STYLE PROMPT
+  showInstallPrompt();
+});
+
+function showInstallPrompt() {
+  const installBar = document.createElement("div");
+
+  installBar.innerHTML = `
+    <div style="
+      position:fixed;
+      bottom:20px;
+      left:50%;
+      transform:translateX(-50%);
+      background:#6366f1;
+      color:#fff;
+      padding:12px 20px;
+      border-radius:30px;
+      z-index:9999;
+      font-size:14px;
+      cursor:pointer;
+    ">
+      Install Emoji App 🚀
+    </div>
+  `;
+
+  document.body.appendChild(installBar);
+
+  installBar.onclick = async () => {
+    installBar.remove();
+
+    if (!deferredPrompt) return;
+
+    deferredPrompt.prompt();
+
+    const { outcome } = await deferredPrompt.userChoice;
+
+    if (outcome === "accepted") {
+      showToast("App Installed 🚀");
+    }
+
+    deferredPrompt = null;
+  };
+
+  // auto hide after 5 sec
+  setTimeout(() => {
+    installBar.remove();
+  }, 5000);
+}

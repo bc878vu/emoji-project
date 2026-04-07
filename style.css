@@ -417,3 +417,28 @@ input#search:focus {
   color: white;
   cursor: pointer;
 }
+
+/* ✅ MOBILE FIX (SEARCH CENTER + FULL WIDTH) */
+@media (max-width: 600px) {
+
+  .nav-container {
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .nav-center {
+    order: 3;
+    width: 100%;
+    max-width: 100%;
+    margin: 5px 0;
+    display: block !important;
+  }
+
+  input#search {
+    width: 100%;
+  }
+
+  .nav-right {
+    gap: 8px;
+  }
+}
