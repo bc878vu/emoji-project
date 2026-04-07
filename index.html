@@ -3,82 +3,105 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>EmojiSaaS | Premium Emoji Library</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <title>Emoji SaaS - Professional Edition</title>
+  <link rel="icon" href="data:,">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
 </head>
-<body class="home-page">
+<body>
 
 <nav class="navbar">
   <div class="nav-container">
     <div class="nav-left">
-      <div class="logo-group" onclick="location.href='index.html'">
+      <button id="themeToggle" title="Toggle Theme">🌙</button>
+      <div class="logo-area" onclick="showSection('main-app')">
         <span class="logo">✨</span>
         <span class="title">EmojiSaaS</span>
       </div>
     </div>
 
     <div class="nav-center">
-      <div class="search-wrapper">
-        <input type="text" id="search" placeholder="Search emojis..." autocomplete="off">
-        <div class="dropdown">
-          <button id="dropBtn">All ⌄</button>
-          <div id="dropMenu" class="menu">
-            <div data-cat="all">All Emojis</div>
-            <div data-cat="Smileys & Emotion">Smileys</div>
-            <div data-cat="People & Body">People</div>
-            <div data-cat="Animals & Nature">Nature</div>
-            <div data-cat="Food & Drink">Food</div>
-            <div data-cat="Activities">Activities</div>
-            <div data-cat="Symbols">Symbols</div>
-          </div>
-        </div>
-      </div>
+      <input type="text" id="search" placeholder="Search emojis..." />
     </div>
 
     <div class="nav-right">
-      <div class="nav-links-desktop">
-        <a href="terms.html" class="nav-link">Terms</a>
-        <a href="privacy.html" class="nav-link">Privacy</a>
+      <div class="dropdown">
+        <button id="dropBtn">Categories ⌄</button>
+        <div id="dropMenu" class="menu">
+          <div data-cat="all">All Emojis</div>
+          <div data-cat="Smileys & Emotion">Smileys</div>
+          <div data-cat="People & Body">People</div>
+          <div data-cat="Animals & Nature">Nature</div>
+          <div data-cat="Food & Drink">Food</div>
+          <div data-cat="Activities">Activities</div>
+          <div data-cat="Travel & Places">Travel</div>
+          <div data-cat="Objects">Objects</div>
+          <div data-cat="Symbols">Symbols</div>
+          <div data-cat="Flags">Flags</div>
+        </div>
       </div>
-      <button id="themeToggle" class="theme-btn">🌙</button>
+      <a href="#" class="nav-link" onclick="showSection('terms')">Terms</a>
+      <a href="#" class="nav-link" onclick="showSection('privacy')">Privacy</a>
     </div>
   </div>
 </nav>
 
 <div class="content-wrapper">
-  <header class="hero-section">
-    <h1>Express Yourself with Emojis</h1>
-    <p>Premium collection for developers and designers.</p>
-  </header>
+  
+  <section id="main-app" class="page-section active">
+    <div class="tabs">
+      <button class="tab active" data-tab="all">All</button>
+      <button class="tab" data-tab="favorites">⭐ Favorites</button>
+      <button class="tab" data-tab="recent">🕒 Recent</button>
+    </div>
+    <main id="container"></main>
+  </section>
 
-  <div class="tabs-container">
-    <button class="tab active" data-tab="all">All</button>
-    <button class="tab" data-tab="favorites">⭐ Favorites</button>
-    <button class="tab" data-tab="recent">🕒 Recent</button>
-  </div>
+  <section id="terms" class="page-section">
+    <div class="static-content">
+      <h1>Terms & Conditions</h1>
+      <p>Last Updated: April 2026</p>
+      <p>Welcome to EmojiSaaS. By using our application, you agree to comply with and be bound by the following terms and conditions of use. Please review these terms carefully.</p>
+      <h3>1. Use of Content</h3>
+      <p>All emojis provided here are part of the standard Unicode set. We provide an interface for easy searching and copying for your personal and professional projects.</p>
+      <h3>2. User Responsibility</h3>
+      <p>Users are responsible for how they use the copied emojis. We do not track where you paste them.</p>
+      <h3>3. Limitation of Liability</h3>
+      <p>The service is provided "as is". We are not liable for any issues arising from the use of this website.</p>
+      <button class="back-btn" onclick="showSection('main-app')">Back to Home</button>
+    </div>
+  </section>
 
-  <main id="container" class="emoji-grid"></main>
+  <section id="privacy" class="page-section">
+    <div class="static-content">
+      <h1>Privacy Policy</h1>
+      <p>Your privacy is important to us. Here is how we handle data:</p>
+      <ul>
+        <li><strong>Local Storage:</strong> We save your "Favorites" and "Recent" emojis directly in your browser. We do not store this on our servers.</li>
+        <li><strong>No Tracking:</strong> We do not use cookies to track your personal identity.</li>
+        <li><strong>Third Party:</strong> We use Google Fonts to enhance the UI experience.</li>
+      </ul>
+      <p>By using EmojiSaaS, you consent to our storage of your preferences on your own device.</p>
+      <button class="back-btn" onclick="showSection('main-app')">Back to Home</button>
+    </div>
+  </section>
+
 </div>
 
-<div id="toast">Copied! 🚀</div>
+<div id="toast">Copied ✔</div>
 
 <footer>
-  <div class="footer-container">
-    <div class="footer-info">
-      <span class="footer-logo">✨ EmojiSaaS</span>
-      <p>© 2026 Professional Portfolio Project</p>
-    </div>
-    <div class="footer-nav">
-      <a href="index.html">Home</a>
-      <a href="terms.html">Terms</a>
-      <a href="privacy.html">Privacy</a>
+  <div class="footer-content">
+    <p>© 2026 EmojiSaaS • Professional Portfolio Project 🚀</p>
+    <div class="footer-links">
+       <span onclick="showSection('terms')">Terms</span> | 
+       <span onclick="showSection('privacy')">Privacy</span>
     </div>
   </div>
 </footer>
 
 <script src="emojiList.js"></script>
 <script src="script.js"></script>
+
 </body>
 </html>
-
