@@ -1,5 +1,5 @@
 /* CACHE NAME */
-const CACHE_NAME = "emoji-app-v1";
+const CACHE_NAME = "emoji-app-v2";
 
 /* FILES TO CACHE */
 const ASSETS = [
