@@ -442,3 +442,38 @@ input#search:focus {
     gap: 8px;
   }
 }
+
+/* ================= MOBILE STICKY TABS NAV ================= */
+@media (max-width: 600px) {
+
+  /* 🔥 make tabs section sticky */
+  .tabs {
+    position: sticky;
+    top: 70px; /* navbar height */
+    z-index: 999;
+    background: var(--bg);
+    padding: 10px 0;
+  }
+
+  /* 🔥 optional: thoda shadow for premium feel */
+  .tabs::after {
+    content: "";
+    position: absolute;
+    bottom: -5px;
+    left: 0;
+    width: 100%;
+    height: 10px;
+    background: linear-gradient(to bottom, rgba(0,0,0,0.15), transparent);
+    opacity: 0.2;
+  }
+
+  /* 🔥 search ko bhi sticky feel dena */
+  .nav-center {
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    background: var(--card);
+    padding: 5px 10px;
+  }
+
+}
