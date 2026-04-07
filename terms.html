@@ -3,51 +3,39 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Terms & Conditions - EmojiSaaS</title>
+  <title>Terms of Service - EmojiSaaS</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-
 <nav class="navbar">
-  <div class="nav-left">
-    <a href="index.html" style="text-decoration:none; display:flex; align-items:center; gap:10px; color:inherit;">
-      <span class="logo">✨</span>
-      <span class="title">EmojiSaaS</span>
-    </a>
-  </div>
-  <div class="nav-right">
-    <a href="index.html" class="nav-link">Home</a>
-    <button id="themeToggle">🌙</button>
+  <div class="nav-container">
+    <div class="nav-left"><div class="logo-group" onclick="location.href='index.html'"><span class="logo">✨</span><span class="title">EmojiSaaS</span></div></div>
+    <div class="nav-right">
+      <a href="index.html" class="nav-link">Home</a>
+      <button id="themeToggle" class="theme-btn">🌙</button>
+    </div>
   </div>
 </nav>
 
-<div class="main-wrapper">
-  <div class="static-page">
+<div class="content-wrapper">
+  <div class="legal-container">
     <h1>Terms & Conditions</h1>
-    <p>Welcome to EmojiSaaS. By accessing this website, you agree to these terms.</p>
-    
-    <h3>1. License to Use</h3>
-    <p>We grant you a personal, non-exclusive license to copy and use the emojis provided on this platform for your personal or commercial projects.</p>
-    
-    <h3>2. User Conduct</h3>
-    <p>Users are prohibited from attempting to reverse engineer the platform or using automated bots to scrape our emoji collection excessively.</p>
-    
-    <h3>3. Intellectual Property</h3>
-    <p>The design, code, and branding of EmojiSaaS are the property of the developer. Emojis themselves are subject to their respective Unicode licenses.</p>
-    
-    <h3>4. Limitation of Liability</h3>
-    <p>EmojiSaaS is provided "as is" without any warranties. We are not responsible for any technical issues or data loss that may occur while using this site.</p>
+    <p>Last updated: April 2026</p>
+    <hr>
+    <h3>1. Usage Policy</h3>
+    <p>EmojiSaaS provides a collection of Unicode emojis. These can be used for personal and professional projects without attribution, though it is appreciated.</p>
+    <h3>2. No Data Misuse</h3>
+    <p>You may not use bots to crawl or scrape the entire database in a way that degrades the service for others.</p>
+    <h3>3. Content Disclaimer</h3>
+    <p>Emojis are rendered based on your operating system. Appearance may vary between iOS, Android, and Windows.</p>
   </div>
 </div>
 
 <footer>
-  <p>© 2026 EmojiSaaS • Terms & Conditions Page</p>
+  <p>© 2026 EmojiSaaS • Legal Department</p>
 </footer>
 
-<script>
-  document.getElementById("themeToggle").onclick = () => {
-    document.body.classList.toggle("dark");
-  };
-</script>
+<script src="script.js"></script>
 </body>
 </html>
