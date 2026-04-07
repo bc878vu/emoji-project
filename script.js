@@ -1,140 +1,126 @@
-// THEME
-const applyTheme = () => {
-  const saved = localStorage.getItem("theme") || "light";
-  const dark = saved === "dark";
-  document.body.classList.toggle("dark", dark);
+// ===== THEME APPLY (NO FLASH) =====
+(function () {
+    const saved = localStorage.getItem("theme") || "light";
+    if (saved === "dark") document.body.classList.add("dark");
+})();
 
-  const btn = document.getElementById("themeToggle");
-  if(btn) btn.innerText = dark ? "☀️" : "🌙";
-};
-applyTheme();
-
-// DEBOUNCE
-function debounce(fn, delay=250){
-  let t;
-  return (...args)=>{
-    clearTimeout(t);
-    t = setTimeout(()=>fn(...args), delay);
-  };
-}
-
+// ===== DOM READY =====
 document.addEventListener("DOMContentLoaded", () => {
 
-  const container = document.getElementById("container");
-  const search = document.getElementById("search");
-  const dropBtn = document.getElementById("dropBtn");
-  const dropMenu = document.getElementById("dropMenu");
-  const themeToggle = document.getElementById("themeToggle");
-  const toast = document.getElementById("toast");
+    const container = document.getElementById("container");
+    const search = document.getElementById("search");
+    const toast = document.getElementById("toast");
+    const themeToggle = document.getElementById("themeToggle");
 
-  let currentCategory = "all";
-  let currentTab = "all";
+    let currentTab = "all";
+    let currentCategory = "all";
 
-  let favorites = JSON.parse(localStorage.getItem("fav")) || [];
-  let recent = JSON.parse(localStorage.getItem("recent")) || [];
+    let favorites = JSON.parse(localStorage.getItem("fav")) || [];
+    let recent = JSON.parse(localStorage.getItem("recent")) || [];
 
-  function display(list){
-    container.innerHTML = "";
+    // ===== THEME BUTTON =====
+    const updateThemeIcon = () => {
+        const isDark = document.body.classList.contains("dark");
+        themeToggle.innerText = isDark ? "☀️" : "🌙";
+    };
 
-    const clean = list.filter(e =>
-      e && e.emoji && e.emoji.trim() !== "" && e.emoji !== "null"
-    );
+    updateThemeIcon();
 
-    if(!clean.length){
-      container.innerHTML = `<h2>No Emojis 😕</h2>`;
-      return;
+    themeToggle.onclick = () => {
+        document.body.classList.toggle("dark");
+        localStorage.setItem("theme",
+            document.body.classList.contains("dark") ? "dark" : "light"
+        );
+        updateThemeIcon();
+    };
+
+    // ===== DISPLAY (OPTIMIZED) =====
+    function display(list) {
+
+        const clean = list.filter(e => e && e.emoji && e.emoji.trim() !== "");
+
+        if (!clean.length) {
+            container.innerHTML = "<p style='text-align:center'>No emojis found</p>";
+            return;
+        }
+
+        const fragment = document.createDocumentFragment();
+
+        clean.forEach(e => {
+            const card = document.createElement("div");
+            card.className = "card";
+
+            card.innerHTML = `
+                <span>${e.emoji}</span>
+                <p>${e.description}</p>
+            `;
+
+            card.onclick = () => {
+                navigator.clipboard.writeText(e.emoji);
+                showToast("Copied " + e.emoji);
+
+                recent = [e, ...recent.filter(r => r.emoji !== e.emoji)].slice(0, 24);
+                localStorage.setItem("recent", JSON.stringify(recent));
+            };
+
+            card.oncontextmenu = (ev) => {
+                ev.preventDefault();
+                if (!favorites.find(f => f.emoji === e.emoji)) {
+                    favorites.push(e);
+                    localStorage.setItem("fav", JSON.stringify(favorites));
+                    showToast("Added ⭐");
+                }
+            };
+
+            fragment.appendChild(card);
+        });
+
+        container.innerHTML = "";
+        container.appendChild(fragment);
     }
 
-    clean.forEach(e=>{
-      const card = document.createElement("div");
-      card.className="card";
-      card.innerHTML=`<span>${e.emoji}</span><p>${e.description}</p>`;
+    // ===== FILTER =====
+    function filterEmoji() {
+        let list = emojiList;
 
-      card.onclick=()=>{
-        navigator.clipboard.writeText(e.emoji);
-        showToast("Copied!");
-        recent=[e,...recent.filter(r=>r.emoji!==e.emoji)].slice(0,30);
-        localStorage.setItem("recent",JSON.stringify(recent));
-      };
+        if (currentTab === "favorites") list = favorites;
+        if (currentTab === "recent") list = recent;
 
-      card.oncontextmenu=(ev)=>{
-        ev.preventDefault();
-        if(!favorites.some(f=>f.emoji===e.emoji)){
-          favorites.unshift(e);
-          localStorage.setItem("fav",JSON.stringify(favorites));
-          showToast("Added ⭐");
-        }
-      };
+        const q = search.value.toLowerCase();
 
-      container.appendChild(card);
-    });
-  }
+        const filtered = list.filter(e =>
+            e.description.toLowerCase().includes(q) &&
+            (currentCategory === "all" || e.category === currentCategory)
+        );
 
-  function filterEmoji(){
-    let list = emojiList;
+        display(filtered);
+    }
 
-    if(currentTab==="favorites") list=favorites;
-    if(currentTab==="recent") list=recent;
-
-    const q = search.value.toLowerCase();
-
-    const filtered = list.filter(e=>{
-      const text = (
-        e.description + " " +
-        (e.tags||[]).join(" ") + " " +
-        (e.aliases||[]).join(" ")
-      ).toLowerCase();
-
-      return text.includes(q) &&
-        (currentCategory==="all" || e.category===currentCategory);
+    // ===== SEARCH (DEBOUNCE) =====
+    let timeout;
+    search.addEventListener("input", () => {
+        clearTimeout(timeout);
+        timeout = setTimeout(filterEmoji, 200);
     });
 
-    display(filtered);
-  }
+    // ===== TABS =====
+    document.querySelectorAll(".tab").forEach(btn => {
+        btn.onclick = () => {
+            document.querySelectorAll(".tab").forEach(t => t.classList.remove("active"));
+            btn.classList.add("active");
 
-  // SEARCH
-  search.addEventListener("input", debounce(filterEmoji));
+            currentTab = btn.dataset.tab;
+            filterEmoji();
+        };
+    });
 
-  // DROPDOWN FIX
-  dropBtn.onclick=(e)=>{
-    e.stopPropagation();
-    dropMenu.classList.toggle("show");
-  };
+    // ===== TOAST =====
+    function showToast(msg) {
+        toast.innerText = msg;
+        toast.classList.add("show");
+        setTimeout(() => toast.classList.remove("show"), 1500);
+    }
 
-  document.addEventListener("click",()=>{
-    dropMenu.classList.remove("show");
-  });
-
-  document.querySelectorAll(".menu div").forEach(i=>{
-    i.onclick=()=>{
-      currentCategory=i.dataset.cat;
-      dropBtn.innerText=i.innerText+" ⌄";
-      filterEmoji();
-    };
-  });
-
-  // TABS
-  document.querySelectorAll(".tab").forEach(t=>{
-    t.onclick=()=>{
-      document.querySelector(".tab.active")?.classList.remove("active");
-      t.classList.add("active");
-      currentTab=t.dataset.tab;
-      filterEmoji();
-    };
-  });
-
-  // THEME
-  themeToggle.onclick=()=>{
-    const dark = document.body.classList.toggle("dark");
-    localStorage.setItem("theme", dark ? "dark":"light");
-    themeToggle.innerText = dark ? "☀️":"🌙";
-  };
-
-  function showToast(msg){
-    toast.innerText=msg;
-    toast.classList.add("show");
-    setTimeout(()=>toast.classList.remove("show"),1500);
-  }
-
-  filterEmoji();
+    // INIT
+    filterEmoji();
 });
