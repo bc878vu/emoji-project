@@ -1,24 +1,23 @@
 const container = document.getElementById("container");
 const search = document.getElementById("search");
 const toast = document.getElementById("toast");
-const preview = document.getElementById("preview");
 
-const dropdownBtn = document.getElementById("dropdownBtn");
-const dropdownMenu = document.getElementById("dropdownMenu");
+const dropBtn = document.getElementById("dropBtn");
+const dropMenu = document.getElementById("dropMenu");
 
 let currentCategory = "all";
 
 /* DROPDOWN */
-dropdownBtn.onclick = () => {
-  dropdownMenu.style.display =
-    dropdownMenu.style.display === "block" ? "none" : "block";
+dropBtn.onclick = () => {
+  dropMenu.style.display =
+    dropMenu.style.display === "block" ? "none" : "block";
 };
 
-dropdownMenu.querySelectorAll("div").forEach(item => {
+dropMenu.querySelectorAll("div").forEach(item => {
   item.onclick = () => {
     currentCategory = item.dataset.cat;
-    dropdownBtn.innerText = item.innerText;
-    dropdownMenu.style.display = "none";
+    dropBtn.innerText = item.innerText;
+    dropMenu.style.display = "none";
     filterEmoji();
   };
 });
@@ -36,17 +35,6 @@ function display(list) {
       <p>${e.description}</p>
     `;
 
-    /* PREVIEW */
-    card.onmouseenter = () => {
-      preview.style.display = "block";
-      preview.innerText = e.emoji;
-    };
-
-    card.onmouseleave = () => {
-      preview.style.display = "none";
-    };
-
-    /* COPY */
     card.onclick = () => {
       navigator.clipboard.writeText(e.emoji);
       showToast();
@@ -61,14 +49,11 @@ function filterEmoji() {
   const text = search.value.toLowerCase();
 
   const filtered = emojiList.filter(e => {
-    const matchText =
-      e.description.toLowerCase().includes(text) ||
-      e.aliases.join(" ").includes(text);
-
-    const matchCat =
-      currentCategory === "all" || e.category === currentCategory;
-
-    return matchText && matchCat;
+    return (
+      (e.description.toLowerCase().includes(text) ||
+      e.aliases.join(" ").includes(text)) &&
+      (currentCategory === "all" || e.category === currentCategory)
+    );
   });
 
   display(filtered);
@@ -80,9 +65,9 @@ function showToast() {
   setTimeout(() => toast.classList.remove("show"), 1200);
 }
 
-/* DARK MODE */
-document.getElementById("toggleTheme").onclick = () => {
-  document.body.classList.toggle("light");
+/* THEME */
+document.getElementById("themeToggle").onclick = () => {
+  document.body.classList.toggle("dark");
 };
 
 /* EVENTS */

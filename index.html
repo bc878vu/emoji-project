@@ -2,25 +2,39 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Emoji Search Pro</title>
+  <title>Emoji Pro</title>
 
   <link rel="icon" href="data:,">
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
 
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-<header class="glass">
-  <h1>✨ Emoji Search</h1>
+<!-- NAVBAR -->
+<nav class="navbar">
 
-  <div class="controls">
-    <input type="text" id="search" placeholder="Search emojis..." />
+  <!-- LEFT -->
+  <div class="nav-left">
+    <button id="themeToggle">🌙</button>
+  </div>
 
-    <!-- CUSTOM DROPDOWN -->
+  <!-- CENTER -->
+  <div class="nav-center">
+    <span class="logo">✨</span>
+    <span class="title">EmojiPro</span>
+  </div>
+
+  <!-- RIGHT -->
+  <div class="nav-right">
+
+    <!-- SEARCH -->
+    <input type="text" id="search" placeholder="Search..." />
+
+    <!-- DROPDOWN -->
     <div class="dropdown">
-      <button id="dropdownBtn">All ⌄</button>
-      <div class="dropdown-menu" id="dropdownMenu">
+      <button id="dropBtn">All ⌄</button>
+      <div id="dropMenu" class="menu">
         <div data-cat="all">All</div>
         <div data-cat="Smileys & Emotion">Smileys</div>
         <div data-cat="People & Body">People</div>
@@ -29,17 +43,20 @@
       </div>
     </div>
 
-    <button id="toggleTheme">🌙</button>
   </div>
-</header>
 
-<div id="container"></div>
+</nav>
 
-<!-- PREVIEW -->
-<div id="preview"></div>
+<!-- MAIN -->
+<main id="container"></main>
 
 <!-- TOAST -->
-<div id="toast">Copied ✅</div>
+<div id="toast">Copied ✔</div>
+
+<!-- FOOTER -->
+<footer>
+  <p>© 2026 EmojiPro • Made by Asad 🚀</p>
+</footer>
 
 <script src="emojiList.js"></script>
 <script src="script.js"></script>
