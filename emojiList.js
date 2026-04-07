@@ -278,7 +278,7 @@ const emojiList = [
     , "ios_version": "6.0"
     }
   , {
-      "emoji": "🥲"
+      "emoji": "😅"
     , "description": "smiling face with tear"
     , "category": "Smileys & Emotion"
     , "aliases": [
@@ -826,7 +826,7 @@ const emojiList = [
     , "ios_version": "12.1"
     }
   , {
-      "emoji": "🥸"
+      "emoji": "😳"
     , "description": "disguised face"
     , "category": "Smileys & Emotion"
     , "aliases": [
@@ -2118,7 +2118,7 @@ const emojiList = [
     , "skin_tones": true
     }
   , {
-      "emoji": "🤌"
+      "emoji": "🤏"
     , "description": "pinched fingers"
     , "category": "People & Body"
     , "aliases": [
@@ -2628,7 +2628,7 @@ const emojiList = [
     , "ios_version": "12.1"
     }
   , {
-      "emoji": "🫀"
+      "emoji": "❤️"
     , "description": "anatomical heart"
     , "category": "People & Body"
     , "aliases": [

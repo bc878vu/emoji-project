@@ -12,19 +12,27 @@
 
 <nav class="navbar">
   <div class="nav-container">
+
+    <!-- LEFT -->
     <div class="nav-left">
-      <button id="themeToggle" title="Toggle Theme">🌙</button>
-      <div class="logo-area" onclick="showSection('main-app')">
+      <!-- ❌ theme button removed from here -->
+      <div class="logo-area" onclick="showSection('main-app'); scrollToTop()">
         <span class="logo">✨</span>
         <span class="title">EmojiSaaS</span>
       </div>
     </div>
 
+    <!-- CENTER -->
     <div class="nav-center">
       <input type="text" id="search" placeholder="Search emojis..." />
     </div>
 
+    <!-- RIGHT -->
     <div class="nav-right">
+
+      <!-- ✅ theme button moved here -->
+      <button id="themeToggle" title="Toggle Theme">🌙</button>
+
       <div class="dropdown">
         <button id="dropBtn">Categories ⌄</button>
         <div id="dropMenu" class="menu">
@@ -40,9 +48,11 @@
           <div data-cat="Flags">Flags</div>
         </div>
       </div>
+
       <a href="#" class="nav-link" onclick="showSection('terms')">Terms</a>
       <a href="#" class="nav-link" onclick="showSection('privacy')">Privacy</a>
     </div>
+
   </div>
 </nav>
 
@@ -68,7 +78,7 @@
       <p>Users are responsible for how they use the copied emojis. We do not track where you paste them.</p>
       <h3>3. Limitation of Liability</h3>
       <p>The service is provided "as is". We are not liable for any issues arising from the use of this website.</p>
-      <button class="back-btn" onclick="showSection('main-app')">Back to Home</button>
+      <button class="back-btn" onclick="showSection('main-app'); scrollToTop()">Back to Home</button>
     </div>
   </section>
 
@@ -82,7 +92,7 @@
         <li><strong>Third Party:</strong> We use Google Fonts to enhance the UI experience.</li>
       </ul>
       <p>By using EmojiSaaS, you consent to our storage of your preferences on your own device.</p>
-      <button class="back-btn" onclick="showSection('main-app')">Back to Home</button>
+      <button class="back-btn" onclick="showSection('main-app'); scrollToTop()">Back to Home</button>
     </div>
   </section>
 
@@ -90,10 +100,22 @@
 
 <div id="toast">Copied ✔</div>
 
+<!-- ✅ UPDATED FOOTER -->
 <footer>
   <div class="footer-content">
     <p>© 2026 EmojiSaaS • Professional Portfolio Project 🚀</p>
-    <div class="footer-links">
+
+    <div style="margin-top:10px;">
+      📧 a.m.a63425@gmail.com <br>
+      📞 +923098851445
+    </div>
+
+    <div style="margin-top:10px;">
+      🔗 <a href="https://github.com" target="_blank">GitHub</a> |
+      🌐 <a href="https://edunexus-app.vercel.app/" target="_blank">Live App</a>
+    </div>
+
+    <div class="footer-links" style="margin-top:10px;">
        <span onclick="showSection('terms')">Terms</span> | 
        <span onclick="showSection('privacy')">Privacy</span>
     </div>

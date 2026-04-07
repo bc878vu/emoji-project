@@ -86,6 +86,14 @@ function showSection(sectionId) {
   window.scrollTo(0, 0);
 }
 
+/* ✅ NEW: SCROLL TO TOP FUNCTION */
+function scrollToTop() {
+  window.scrollTo({
+    top: 0,
+    behavior: "smooth"
+  });
+}
+
 /* TAB SWITCHING */
 document.querySelectorAll(".tab").forEach(btn => {
   btn.onclick = () => {
@@ -123,11 +131,14 @@ function showToast(msg) {
   setTimeout(() => toast.classList.remove("show"), 2000);
 }
 
-/* DARK MODE */
-document.getElementById("themeToggle").onclick = () => {
+/* ✅ UPDATED DARK MODE (SAME LOGIC, CLEAN) */
+const themeBtn = document.getElementById("themeToggle");
+
+themeBtn.onclick = () => {
   document.body.classList.toggle("dark");
   const isDark = document.body.classList.contains("dark");
-  document.getElementById("themeToggle").innerText = isDark ? "☀️" : "🌙";
+
+  themeBtn.innerText = isDark ? "🌞" : "🌙";
 };
 
 /* INITIALIZE */
