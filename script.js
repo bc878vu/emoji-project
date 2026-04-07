@@ -3,6 +3,7 @@ const search = document.getElementById("search");
 const toast = document.getElementById("toast");
 const dropBtn = document.getElementById("dropBtn");
 const dropMenu = document.getElementById("dropMenu");
+const themeBtn = document.getElementById("themeToggle");
 
 let currentCategory = "all";
 let currentTab = "all";
@@ -11,17 +12,19 @@ let currentTab = "all";
 let favorites = JSON.parse(localStorage.getItem("fav")) || [];
 let recent = JSON.parse(localStorage.getItem("recent")) || [];
 
-/* DISPLAY FUNCTION */
+/* ================= DISPLAY ================= */
 function display(list) {
   container.innerHTML = "";
-  
-  // Filtering out null/empty emojis if any
+
   const cleanList = list.filter(e => e.emoji && e.emoji.trim() !== "");
 
   if (cleanList.length === 0) {
     container.innerHTML = `<p style="text-align:center; grid-column: 1/-1; padding: 50px; opacity: 0.5;">No emojis found...</p>`;
     return;
   }
+
+  // ✅ PERFORMANCE: fragment use (fast render)
+  const fragment = document.createDocumentFragment();
 
   cleanList.forEach(e => {
     const card = document.createElement("div");
@@ -33,18 +36,17 @@ function display(list) {
       <p>${e.description}</p>
     `;
 
-    /* COPY TO CLIPBOARD */
+    /* COPY */
     card.onclick = () => {
       navigator.clipboard.writeText(e.emoji);
       showToast(`Copied ${e.emoji}`);
 
-      // Add to Recent (Avoid duplicates)
       recent = [e, ...recent.filter(item => item.emoji !== e.emoji)].slice(0, 30);
       localStorage.setItem("recent", JSON.stringify(recent));
       if (currentTab === "recent") filterEmoji();
     };
 
-    /* RIGHT CLICK FAVORITE */
+    /* FAVORITE */
     card.oncontextmenu = (ev) => {
       ev.preventDefault();
       if (!favorites.find(item => item.emoji === e.emoji)) {
@@ -56,11 +58,13 @@ function display(list) {
       }
     };
 
-    container.appendChild(card);
+    fragment.appendChild(card);
   });
+
+  container.appendChild(fragment);
 }
 
-/* FILTERING LOGIC */
+/* ================= FILTER ================= */
 function filterEmoji() {
   let list = emojiList;
 
@@ -70,23 +74,31 @@ function filterEmoji() {
   const searchTerm = search.value.toLowerCase();
 
   const filtered = list.filter(e => {
-    const matchesSearch = e.description.toLowerCase().includes(searchTerm) || 
-                          (e.tags && e.tags.some(t => t.toLowerCase().includes(searchTerm)));
-    const matchesCat = (currentCategory === "all" || e.category === currentCategory);
+    const matchesSearch =
+      e.description.toLowerCase().includes(searchTerm) ||
+      (e.tags && e.tags.some(t => t.toLowerCase().includes(searchTerm)));
+
+    const matchesCat =
+      currentCategory === "all" || e.category === currentCategory;
+
     return matchesSearch && matchesCat;
   });
 
   display(filtered);
 }
 
-/* SECTION SWITCHER (Home, Terms, Privacy) */
+/* ================= SECTIONS ================= */
 function showSection(sectionId) {
-  document.querySelectorAll('.page-section').forEach(s => s.classList.remove('active'));
-  document.getElementById(sectionId).classList.add('active');
-  window.scrollTo(0, 0);
+  document.querySelectorAll(".page-section").forEach(s =>
+    s.classList.remove("active")
+  );
+  document.getElementById(sectionId).classList.add("active");
+
+  // instant + smooth
+  scrollToTop();
 }
 
-/* ✅ NEW: SCROLL TO TOP FUNCTION */
+/* ================= SCROLL ================= */
 function scrollToTop() {
   window.scrollTo({
     top: 0,
@@ -94,21 +106,25 @@ function scrollToTop() {
   });
 }
 
-/* TAB SWITCHING */
+/* ================= TABS ================= */
 document.querySelectorAll(".tab").forEach(btn => {
   btn.onclick = () => {
-    document.querySelectorAll(".tab").forEach(b => b.classList.remove("active"));
+    document.querySelectorAll(".tab").forEach(b =>
+      b.classList.remove("active")
+    );
     btn.classList.add("active");
+
     currentTab = btn.dataset.tab;
-    showSection('main-app'); // Ensure we are on home
+    showSection("main-app");
     filterEmoji();
   };
 });
 
-/* CATEGORY DROPDOWN */
+/* ================= DROPDOWN ================= */
 dropBtn.onclick = (e) => {
   e.stopPropagation();
-  dropMenu.style.display = dropMenu.style.display === "block" ? "none" : "block";
+  dropMenu.style.display =
+    dropMenu.style.display === "block" ? "none" : "block";
 };
 
 document.querySelectorAll(".menu div").forEach(item => {
@@ -116,31 +132,58 @@ document.querySelectorAll(".menu div").forEach(item => {
     currentCategory = item.dataset.cat;
     dropBtn.innerHTML = `${item.innerText} ⌄`;
     dropMenu.style.display = "none";
-    showSection('main-app');
+
+    showSection("main-app");
     filterEmoji();
   };
 });
 
-// Close dropdown on click outside
-window.onclick = () => dropMenu.style.display = "none";
+window.onclick = () => (dropMenu.style.display = "none");
 
-/* TOAST NOTIFICATION */
+/* ================= TOAST ================= */
 function showToast(msg) {
   toast.innerText = msg;
   toast.classList.add("show");
+
   setTimeout(() => toast.classList.remove("show"), 2000);
 }
 
-/* ✅ UPDATED DARK MODE (SAME LOGIC, CLEAN) */
-const themeBtn = document.getElementById("themeToggle");
+/* ================= THEME ================= */
 
+// ✅ LOAD SAVED THEME (NO FLICKER)
+(function initTheme() {
+  const savedTheme = localStorage.getItem("theme");
+
+  if (savedTheme === "dark") {
+    document.body.classList.add("dark");
+    themeBtn.innerText = "🌞";
+  } else {
+    themeBtn.innerText = "🌙";
+  }
+})();
+
+// ✅ TOGGLE THEME
 themeBtn.onclick = () => {
   document.body.classList.toggle("dark");
+
   const isDark = document.body.classList.contains("dark");
 
   themeBtn.innerText = isDark ? "🌞" : "🌙";
+
+  // save
+  localStorage.setItem("theme", isDark ? "dark" : "light");
 };
 
-/* INITIALIZE */
-search.addEventListener("input", filterEmoji);
-window.onload = () => display(emojiList);
+/* ================= INIT ================= */
+
+// ✅ INPUT OPTIMIZATION (debounce)
+let debounceTimer;
+search.addEventListener("input", () => {
+  clearTimeout(debounceTimer);
+  debounceTimer = setTimeout(filterEmoji, 150);
+});
+
+// ✅ LOAD FAST
+window.onload = () => {
+  display(emojiList);
+};

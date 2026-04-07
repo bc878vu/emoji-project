@@ -3,9 +3,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Emoji SaaS - Professional Edition</title>
+  <title>EmojiSaaS • Smart Emoji Explorer 🚀</title>
   <link rel="icon" href="data:,">
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -15,10 +15,9 @@
 
     <!-- LEFT -->
     <div class="nav-left">
-      <!-- ❌ theme button removed from here -->
       <div class="logo-area" onclick="showSection('main-app'); scrollToTop()">
         <span class="logo">✨</span>
-        <span class="title">EmojiSaaS</span>
+        <span class="title">EmojiSaaS<span style="color:#6366f1;">+</span></span>
       </div>
     </div>
 
@@ -30,7 +29,6 @@
     <!-- RIGHT -->
     <div class="nav-right">
 
-      <!-- ✅ theme button moved here -->
       <button id="themeToggle" title="Toggle Theme">🌙</button>
 
       <div class="dropdown">
@@ -71,13 +69,7 @@
     <div class="static-content">
       <h1>Terms & Conditions</h1>
       <p>Last Updated: April 2026</p>
-      <p>Welcome to EmojiSaaS. By using our application, you agree to comply with and be bound by the following terms and conditions of use. Please review these terms carefully.</p>
-      <h3>1. Use of Content</h3>
-      <p>All emojis provided here are part of the standard Unicode set. We provide an interface for easy searching and copying for your personal and professional projects.</p>
-      <h3>2. User Responsibility</h3>
-      <p>Users are responsible for how they use the copied emojis. We do not track where you paste them.</p>
-      <h3>3. Limitation of Liability</h3>
-      <p>The service is provided "as is". We are not liable for any issues arising from the use of this website.</p>
+      <p>EmojiSaaS+ is a modern emoji explorer designed for fast search and usage.</p>
       <button class="back-btn" onclick="showSection('main-app'); scrollToTop()">Back to Home</button>
     </div>
   </section>
@@ -85,13 +77,7 @@
   <section id="privacy" class="page-section">
     <div class="static-content">
       <h1>Privacy Policy</h1>
-      <p>Your privacy is important to us. Here is how we handle data:</p>
-      <ul>
-        <li><strong>Local Storage:</strong> We save your "Favorites" and "Recent" emojis directly in your browser. We do not store this on our servers.</li>
-        <li><strong>No Tracking:</strong> We do not use cookies to track your personal identity.</li>
-        <li><strong>Third Party:</strong> We use Google Fonts to enhance the UI experience.</li>
-      </ul>
-      <p>By using EmojiSaaS, you consent to our storage of your preferences on your own device.</p>
+      <p>We respect your privacy. All data is stored locally.</p>
       <button class="back-btn" onclick="showSection('main-app'); scrollToTop()">Back to Home</button>
     </div>
   </section>
@@ -100,25 +86,39 @@
 
 <div id="toast">Copied ✔</div>
 
-<!-- ✅ UPDATED FOOTER -->
-<footer>
-  <div class="footer-content">
-    <p>© 2026 EmojiSaaS • Professional Portfolio Project 🚀</p>
+<!-- 🔥 PREMIUM FOOTER -->
+<footer class="footer-pro">
+  <div class="footer-grid">
 
-    <div style="margin-top:10px;">
-      📧 a.m.a63425@gmail.com <br>
-      📞 +923098851445
+    <!-- LEFT -->
+    <div>
+      <h3>✨ EmojiSaaS+</h3>
+      <p>Fast & modern emoji explorer for developers and creators.</p>
     </div>
 
-    <div style="margin-top:10px;">
-      🔗 <a href="https://github.com" target="_blank">GitHub</a> |
-      🌐 <a href="https://edunexus-app.vercel.app/" target="_blank">Live App</a>
+    <!-- CENTER -->
+    <div>
+      <h4>Quick Links</h4>
+      <p onclick="showSection('main-app')">Home</p>
+      <p onclick="showSection('terms')">Terms</p>
+      <p onclick="showSection('privacy')">Privacy</p>
     </div>
 
-    <div class="footer-links" style="margin-top:10px;">
-       <span onclick="showSection('terms')">Terms</span> | 
-       <span onclick="showSection('privacy')">Privacy</span>
+    <!-- RIGHT -->
+    <div>
+      <h4>Contact</h4>
+      <p>📧 a.m.a63425@gmail.com</p>
+      <p>📞 +923098851445</p>
+      <p>
+        🔗 <a href="https://github.com" target="_blank">GitHub</a> |
+        🌐 <a href="https://edunexus-app.vercel.app/" target="_blank">Live App</a>
+      </p>
     </div>
+
+  </div>
+
+  <div class="footer-bottom">
+    © 2026 EmojiSaaS+ • Built with ❤️ by Asad
   </div>
 </footer>
 
