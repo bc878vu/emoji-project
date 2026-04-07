@@ -1,0 +1,26 @@
+{
+  "name": "EmojiSaaS+ • Smart Emoji Explorer",
+  "short_name": "Emoji+",
+  "description": "Fast, modern emoji explorer with favorites, recent history, and smart search.",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#0b1220",
+  "theme_color": "#6366f1",
+
+  "icons": [
+    {
+      "src": "https://cdn-icons-png.flaticon.com/512/742/742751.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "https://cdn-icons-png.flaticon.com/512/742/742751.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}

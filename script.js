@@ -8,9 +8,9 @@ const themeBtn = document.getElementById("themeToggle");
 let currentCategory = "all";
 let currentTab = "all";
 
-// Local Storage Load
-let favorites = JSON.parse(localStorage.getItem("fav")) || [];
-let recent = JSON.parse(localStorage.getItem("recent")) || [];
+// Local Storage Load (SAFE PARSE)
+let favorites = JSON.parse(localStorage.getItem("fav") || "[]");
+let recent = JSON.parse(localStorage.getItem("recent") || "[]");
 
 /* ================= DISPLAY ================= */
 function display(list) {
@@ -23,7 +23,6 @@ function display(list) {
     return;
   }
 
-  // ✅ PERFORMANCE: fragment use (fast render)
   const fragment = document.createDocumentFragment();
 
   cleanList.forEach(e => {
@@ -41,15 +40,20 @@ function display(list) {
       navigator.clipboard.writeText(e.emoji);
       showToast(`Copied ${e.emoji}`);
 
+      // ⚡ FAST RECENT UPDATE
       recent = [e, ...recent.filter(item => item.emoji !== e.emoji)].slice(0, 30);
       localStorage.setItem("recent", JSON.stringify(recent));
+
       if (currentTab === "recent") filterEmoji();
     };
 
     /* FAVORITE */
     card.oncontextmenu = (ev) => {
       ev.preventDefault();
-      if (!favorites.find(item => item.emoji === e.emoji)) {
+
+      const exists = favorites.some(item => item.emoji === e.emoji);
+
+      if (!exists) {
         favorites.push(e);
         localStorage.setItem("fav", JSON.stringify(favorites));
         showToast("Added to Favorites ⭐");
@@ -73,16 +77,13 @@ function filterEmoji() {
 
   const searchTerm = search.value.toLowerCase();
 
-  const filtered = list.filter(e => {
-    const matchesSearch =
-      e.description.toLowerCase().includes(searchTerm) ||
-      (e.tags && e.tags.some(t => t.toLowerCase().includes(searchTerm)));
-
-    const matchesCat =
-      currentCategory === "all" || e.category === currentCategory;
-
-    return matchesSearch && matchesCat;
-  });
+  // ⚡ OPTIMIZED FILTER (FASTER)
+  const filtered = list.filter(e =>
+    (e.description.toLowerCase().includes(searchTerm) ||
+     (e.tags && e.tags.some(t => t.toLowerCase().includes(searchTerm))))
+    &&
+    (currentCategory === "all" || e.category === currentCategory)
+  );
 
   display(filtered);
 }
@@ -92,18 +93,16 @@ function showSection(sectionId) {
   document.querySelectorAll(".page-section").forEach(s =>
     s.classList.remove("active")
   );
-  document.getElementById(sectionId).classList.add("active");
 
-  // instant + smooth
+  const target = document.getElementById(sectionId);
+  if (target) target.classList.add("active");
+
   scrollToTop();
 }
 
 /* ================= SCROLL ================= */
 function scrollToTop() {
-  window.scrollTo({
-    top: 0,
-    behavior: "smooth"
-  });
+  window.scrollTo({ top: 0, behavior: "smooth" });
 }
 
 /* ================= TABS ================= */
@@ -112,9 +111,10 @@ document.querySelectorAll(".tab").forEach(btn => {
     document.querySelectorAll(".tab").forEach(b =>
       b.classList.remove("active")
     );
-    btn.classList.add("active");
 
+    btn.classList.add("active");
     currentTab = btn.dataset.tab;
+
     showSection("main-app");
     filterEmoji();
   };
@@ -123,6 +123,7 @@ document.querySelectorAll(".tab").forEach(btn => {
 /* ================= DROPDOWN ================= */
 dropBtn.onclick = (e) => {
   e.stopPropagation();
+
   dropMenu.style.display =
     dropMenu.style.display === "block" ? "none" : "block";
 };
@@ -138,52 +139,63 @@ document.querySelectorAll(".menu div").forEach(item => {
   };
 });
 
-window.onclick = () => (dropMenu.style.display = "none");
+// ⚡ SMART CLOSE (ONLY WHEN OPEN)
+window.onclick = () => {
+  if (dropMenu.style.display === "block") {
+    dropMenu.style.display = "none";
+  }
+};
 
 /* ================= TOAST ================= */
+let toastTimer;
+
 function showToast(msg) {
   toast.innerText = msg;
   toast.classList.add("show");
 
-  setTimeout(() => toast.classList.remove("show"), 2000);
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => {
+    toast.classList.remove("show");
+  }, 1800);
 }
 
 /* ================= THEME ================= */
 
-// ✅ LOAD SAVED THEME (NO FLICKER)
+// ⚡ LOAD FAST (NO FLICKER)
 (function initTheme() {
-  const savedTheme = localStorage.getItem("theme");
+  try {
+    const savedTheme = localStorage.getItem("theme");
 
-  if (savedTheme === "dark") {
-    document.body.classList.add("dark");
-    themeBtn.innerText = "🌞";
-  } else {
-    themeBtn.innerText = "🌙";
-  }
+    if (savedTheme === "dark") {
+      document.body.classList.add("dark");
+      themeBtn.innerText = "🌞";
+    } else {
+      themeBtn.innerText = "🌙";
+    }
+  } catch (e) {}
 })();
 
-// ✅ TOGGLE THEME
+// ⚡ TOGGLE (FAST)
 themeBtn.onclick = () => {
-  document.body.classList.toggle("dark");
-
-  const isDark = document.body.classList.contains("dark");
+  const isDark = document.body.classList.toggle("dark");
 
   themeBtn.innerText = isDark ? "🌞" : "🌙";
 
-  // save
   localStorage.setItem("theme", isDark ? "dark" : "light");
 };
 
-/* ================= INIT ================= */
+/* ================= SEARCH ================= */
 
-// ✅ INPUT OPTIMIZATION (debounce)
+// ⚡ BETTER DEBOUNCE
 let debounceTimer;
 search.addEventListener("input", () => {
   clearTimeout(debounceTimer);
-  debounceTimer = setTimeout(filterEmoji, 150);
+  debounceTimer = setTimeout(filterEmoji, 120);
 });
 
-// ✅ LOAD FAST
-window.onload = () => {
+/* ================= INIT ================= */
+
+// ⚡ FAST LOAD (NO BLOCK)
+window.addEventListener("DOMContentLoaded", () => {
   display(emojiList);
-};
+});

@@ -4,16 +4,21 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>EmojiSaaS • Smart Emoji Explorer 🚀</title>
+
   <link rel="icon" href="data:,">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
+
+  <!-- PWA -->
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#6366f1">
 </head>
+
 <body>
 
 <nav class="navbar">
   <div class="nav-container">
 
-    <!-- LEFT -->
     <div class="nav-left">
       <div class="logo-area" onclick="showSection('main-app'); scrollToTop()">
         <span class="logo">✨</span>
@@ -21,14 +26,11 @@
       </div>
     </div>
 
-    <!-- CENTER -->
     <div class="nav-center">
       <input type="text" id="search" placeholder="Search emojis..." />
     </div>
 
-    <!-- RIGHT -->
     <div class="nav-right">
-
       <button id="themeToggle" title="Toggle Theme">🌙</button>
 
       <div class="dropdown">
@@ -65,19 +67,114 @@
     <main id="container"></main>
   </section>
 
+  <!-- ✅ TERMS (DETAILED HUMAN TONE) -->
   <section id="terms" class="page-section">
     <div class="static-content">
       <h1>Terms & Conditions</h1>
-      <p>Last Updated: April 2026</p>
-      <p>EmojiSaaS+ is a modern emoji explorer designed for fast search and usage.</p>
+      <p><strong>Last Updated:</strong> April 2026</p>
+
+      <p>
+        Welcome to <strong>EmojiSaaS+</strong> 👋  
+        We built this tool to make emoji search fast, simple, and fun. By using this app, you agree to these terms — nothing complicated, just keeping things fair for everyone.
+      </p>
+
+      <h3>1. How You Can Use This App</h3>
+      <p>
+        You’re free to search, copy, and use emojis for personal or professional work.  
+        No login required, no tracking — just pure utility.
+      </p>
+
+      <h3>2. Emoji Content</h3>
+      <p>
+        All emojis belong to the official Unicode standard.  
+        We don’t claim ownership — we just make them easier to access.
+      </p>
+
+      <h3>3. User Responsibility</h3>
+      <p>
+        What you do with the emojis is completely up to you.  
+        Please make sure you’re using them in a respectful and appropriate way.
+      </p>
+
+      <h3>4. Favorites & History</h3>
+      <p>
+        Your favorites and recent emojis are stored only in your browser.  
+        We don’t store or see any of your activity.
+      </p>
+
+      <h3>5. Service Availability</h3>
+      <p>
+        We aim to keep EmojiSaaS+ smooth and fast, but we can’t guarantee 100% uptime.  
+        Things may improve, change, or update over time.
+      </p>
+
+      <h3>6. Limitation of Liability</h3>
+      <p>
+        This app is provided “as is”.  
+        We’re not responsible for any issues that arise from using it.
+      </p>
+
+      <p>
+        If you continue using EmojiSaaS+, it means you’re okay with these terms 👍
+      </p>
+
       <button class="back-btn" onclick="showSection('main-app'); scrollToTop()">Back to Home</button>
     </div>
   </section>
 
+  <!-- ✅ PRIVACY (DETAILED HUMAN TONE) -->
   <section id="privacy" class="page-section">
     <div class="static-content">
       <h1>Privacy Policy</h1>
-      <p>We respect your privacy. All data is stored locally.</p>
+
+      <p>
+        Your privacy matters — seriously.  
+        EmojiSaaS+ is designed to work without collecting personal data.
+      </p>
+
+      <h3>1. No Personal Data Collection</h3>
+      <p>
+        We don’t ask for your name, email, or any personal info.  
+        You can use the app freely without signing up.
+      </p>
+
+      <h3>2. Local Storage Only</h3>
+      <p>
+        Favorites and recent emojis are saved directly in your browser (localStorage).  
+        That means:
+      </p>
+      <ul>
+        <li>✔ Data stays on your device</li>
+        <li>✔ No server storage</li>
+        <li>✔ No tracking</li>
+      </ul>
+
+      <h3>3. No Tracking or Cookies</h3>
+      <p>
+        We don’t use tracking cookies or analytics that identify you personally.
+      </p>
+
+      <h3>4. Third-Party Services</h3>
+      <p>
+        We only use Google Fonts to improve UI.  
+        No ads, no trackers, no hidden scripts.
+      </p>
+
+      <h3>5. Security</h3>
+      <p>
+        Since everything runs locally, your data is as safe as your own device.
+      </p>
+
+      <h3>6. Updates</h3>
+      <p>
+        This policy may evolve as we improve the app — but we’ll always keep things transparent.
+      </p>
+
+      <p>
+        In short:  
+        <strong>We don’t track you. We don’t store your data. Period.</strong> 🔒
+      </p>
+
       <button class="back-btn" onclick="showSection('main-app'); scrollToTop()">Back to Home</button>
     </div>
   </section>
@@ -86,17 +183,14 @@
 
 <div id="toast">Copied ✔</div>
 
-<!-- 🔥 PREMIUM FOOTER -->
 <footer class="footer-pro">
   <div class="footer-grid">
 
-    <!-- LEFT -->
     <div>
       <h3>✨ EmojiSaaS+</h3>
       <p>Fast & modern emoji explorer for developers and creators.</p>
     </div>
 
-    <!-- CENTER -->
     <div>
       <h4>Quick Links</h4>
       <p onclick="showSection('main-app')">Home</p>
@@ -104,7 +198,6 @@
       <p onclick="showSection('privacy')">Privacy</p>
     </div>
 
-    <!-- RIGHT -->
     <div>
       <h4>Contact</h4>
       <p>📧 a.m.a63425@gmail.com</p>
@@ -124,6 +217,14 @@
 
 <script src="emojiList.js"></script>
 <script src="script.js"></script>
+
+<script>
+if ("serviceWorker" in navigator) {
+  window.addEventListener("load", () => {
+    navigator.serviceWorker.register("service-worker.js");
+  });
+}
+</script>
 
 </body>
 </html>

@@ -17,8 +17,11 @@ body.dark {
 /* RESET */
 * {
   box-sizing: border-box;
-  -webkit-font-smoothing: antialiased; /* ✅ TEXT SHARP */
+  -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+
+  /* 🚫 REMOVE GLOBAL TRANSITION (FIX LAG) */
+  transition: none;
 }
 
 /* BODY */
@@ -31,8 +34,8 @@ body {
   display: flex;
   flex-direction: column;
 
-  /* ✅ NO BLINK / SMOOTH THEME */
-  transition: background 0.2s ease, color 0.2s ease;
+  /* ⚡ FAST + NO FLICKER */
+  transition: background-color 0.15s linear, color 0.15s linear;
 }
 
 /* LAYOUT */
@@ -53,10 +56,9 @@ body {
   align-items: center;
   z-index: 1000;
 
-  /* 🔥 PREMIUM SHADOW */
   box-shadow: 0 4px 20px rgba(0,0,0,0.05);
 
-  transition: background 0.2s ease;
+  transition: background-color 0.15s linear;
 }
 
 .nav-container {
@@ -99,7 +101,7 @@ body {
   align-items: center;
   justify-content: center;
 
-  transition: 0.2s;
+  transition: transform 0.2s ease;
 }
 
 #themeToggle:hover {
@@ -122,7 +124,7 @@ input#search {
   color: var(--text);
   outline: none;
 
-  transition: 0.2s;
+  transition: border-color 0.2s ease;
 }
 
 input#search:focus {
@@ -165,6 +167,8 @@ input#search:focus {
   width: 180px;
   box-shadow: 0 10px 25px rgba(0,0,0,0.15);
   overflow: hidden;
+
+  transition: opacity 0.2s ease;
 }
 
 .menu div {
@@ -194,7 +198,8 @@ input#search:focus {
   background: var(--card);
   color: var(--text);
   cursor: pointer;
-  transition: 0.2s;
+
+  transition: background-color 0.2s ease;
 }
 
 .tab.active {
@@ -208,7 +213,7 @@ input#search:focus {
 
 .page-section.active {
   display: block;
-  animation: fadeIn 0.3s ease;
+  animation: fadeIn 0.25s ease;
 }
 
 /* CONTENT */
@@ -219,6 +224,8 @@ input#search:focus {
   background: var(--card);
   border-radius: 15px;
   line-height: 1.6;
+
+  transition: background-color 0.15s linear;
 }
 
 /* GRID */
@@ -240,9 +247,9 @@ input#search:focus {
   cursor: pointer;
   position: relative;
 
-  transition: 0.25s ease;
-
   border: 1px solid rgba(0,0,0,0.05);
+
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
 .card:hover {
@@ -264,11 +271,25 @@ input#search:focus {
   opacity: 0.85;
 }
 
-/* 🔥 PREMIUM FOOTER */
+/* CARD ACTIONS */
+.card-actions {
+  display: flex;
+  justify-content: center;
+  gap: 6px;
+  margin-top: 10px;
+}
+
+.card-actions span {
+  cursor: pointer;
+}
+
+/* FOOTER */
 .footer-pro {
   background: var(--card);
   padding: 50px 20px 20px;
   border-top: 1px solid rgba(0,0,0,0.1);
+
+  transition: background-color 0.15s linear;
 }
 
 .footer-grid {
@@ -287,7 +308,7 @@ input#search:focus {
 .footer-pro p {
   margin: 6px 0;
   font-size: 14px;
-  opacity: 0.8;
+  opacity: 0.85;
   cursor: pointer;
 }
 
@@ -341,7 +362,9 @@ input#search:focus {
   padding: 12px 25px;
   border-radius: 30px;
   opacity: 0;
-  transition: 0.3s;
+
+  transition: opacity 0.25s ease, bottom 0.25s ease;
+
   pointer-events: none;
   z-index: 2000;
 }
