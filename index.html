@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Emoji Pro</title>
+  <title>Emoji SaaS</title>
 
   <link rel="icon" href="data:,">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
@@ -22,16 +22,14 @@
   <!-- CENTER -->
   <div class="nav-center">
     <span class="logo">✨</span>
-    <span class="title">EmojiPro</span>
+    <span class="title">EmojiSaaS</span>
   </div>
 
   <!-- RIGHT -->
   <div class="nav-right">
 
-    <!-- SEARCH -->
-    <input type="text" id="search" placeholder="Search..." />
+    <input type="text" id="search" placeholder="Search emojis..." />
 
-    <!-- DROPDOWN -->
     <div class="dropdown">
       <button id="dropBtn">All ⌄</button>
       <div id="dropMenu" class="menu">
@@ -47,15 +45,21 @@
 
 </nav>
 
+<!-- TABS -->
+<div class="tabs">
+  <button class="tab active" data-tab="all">All</button>
+  <button class="tab" data-tab="favorites">⭐ Favorites</button>
+  <button class="tab" data-tab="recent">🕒 Recent</button>
+</div>
+
 <!-- MAIN -->
 <main id="container"></main>
 
 <!-- TOAST -->
 <div id="toast">Copied ✔</div>
 
-<!-- FOOTER -->
 <footer>
-  <p>© 2026 EmojiPro • Made by Asad 🚀</p>
+  <p>© 2026 EmojiSaaS • Built for portfolio 🚀</p>
 </footer>
 
 <script src="emojiList.js"></script>

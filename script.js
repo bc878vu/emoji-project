@@ -2,25 +2,11 @@ const container = document.getElementById("container");
 const search = document.getElementById("search");
 const toast = document.getElementById("toast");
 
-const dropBtn = document.getElementById("dropBtn");
-const dropMenu = document.getElementById("dropMenu");
-
 let currentCategory = "all";
+let currentTab = "all";
 
-/* DROPDOWN */
-dropBtn.onclick = () => {
-  dropMenu.style.display =
-    dropMenu.style.display === "block" ? "none" : "block";
-};
-
-dropMenu.querySelectorAll("div").forEach(item => {
-  item.onclick = () => {
-    currentCategory = item.dataset.cat;
-    dropBtn.innerText = item.innerText;
-    dropMenu.style.display = "none";
-    filterEmoji();
-  };
-});
+let favorites = JSON.parse(localStorage.getItem("fav")) || [];
+let recent = JSON.parse(localStorage.getItem("recent")) || [];
 
 /* DISPLAY */
 function display(list) {
@@ -35,9 +21,21 @@ function display(list) {
       <p>${e.description}</p>
     `;
 
+    /* COPY */
     card.onclick = () => {
       navigator.clipboard.writeText(e.emoji);
       showToast();
+
+      recent.unshift(e);
+      localStorage.setItem("recent", JSON.stringify(recent.slice(0,20)));
+    };
+
+    /* FAVORITE */
+    card.oncontextmenu = (ev) => {
+      ev.preventDefault();
+      favorites.push(e);
+      localStorage.setItem("fav", JSON.stringify(favorites));
+      showToast("Saved ⭐");
     };
 
     container.appendChild(card);
@@ -46,23 +44,51 @@ function display(list) {
 
 /* FILTER */
 function filterEmoji() {
+  let list = emojiList;
+
+  if (currentTab === "favorites") list = favorites;
+  if (currentTab === "recent") list = recent;
+
   const text = search.value.toLowerCase();
 
-  const filtered = emojiList.filter(e => {
-    return (
-      (e.description.toLowerCase().includes(text) ||
-      e.aliases.join(" ").includes(text)) &&
-      (currentCategory === "all" || e.category === currentCategory)
-    );
-  });
+  list = list.filter(e =>
+    (e.description.toLowerCase().includes(text)) &&
+    (currentCategory === "all" || e.category === currentCategory)
+  );
 
-  display(filtered);
+  display(list);
 }
 
+/* TABS */
+document.querySelectorAll(".tab").forEach(btn => {
+  btn.onclick = () => {
+    document.querySelectorAll(".tab").forEach(b=>b.classList.remove("active"));
+    btn.classList.add("active");
+
+    currentTab = btn.dataset.tab;
+    filterEmoji();
+  };
+});
+
+/* DROPDOWN */
+dropBtn.onclick = () => {
+  dropMenu.style.display = dropMenu.style.display === "block" ? "none" : "block";
+};
+
+dropMenu.querySelectorAll("div").forEach(item => {
+  item.onclick = () => {
+    currentCategory = item.dataset.cat;
+    dropBtn.innerText = item.innerText;
+    dropMenu.style.display = "none";
+    filterEmoji();
+  };
+});
+
 /* TOAST */
-function showToast() {
+function showToast(msg="Copied ✔") {
+  toast.innerText = msg;
   toast.classList.add("show");
-  setTimeout(() => toast.classList.remove("show"), 1200);
+  setTimeout(()=>toast.classList.remove("show"),1200);
 }
 
 /* THEME */

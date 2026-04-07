@@ -28,12 +28,10 @@ body {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0 20px;
+  padding: 0 25px;
   box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-  z-index: 100;
 }
 
-/* LEFT */
 .nav-left button {
   border: none;
   background: none;
@@ -41,12 +39,10 @@ body {
   cursor: pointer;
 }
 
-/* CENTER */
 .nav-center {
   display: flex;
   align-items: center;
-  gap: 8px;
-  font-weight: 600;
+  gap: 10px;
 }
 
 .logo {
@@ -54,7 +50,7 @@ body {
 }
 
 .title {
-  font-size: 16px;
+  font-weight: 600;
 }
 
 /* RIGHT */
@@ -64,13 +60,10 @@ body {
   gap: 10px;
 }
 
-/* SEARCH */
 input {
   padding: 8px 12px;
   border-radius: 20px;
   border: 1px solid #ddd;
-  outline: none;
-  width: 180px;
 }
 
 /* DROPDOWN */
@@ -84,7 +77,6 @@ input {
   border: none;
   background: var(--primary);
   color: white;
-  cursor: pointer;
 }
 
 .menu {
@@ -98,7 +90,7 @@ input {
 }
 
 .menu div {
-  padding: 10px 15px;
+  padding: 10px;
   cursor: pointer;
 }
 
@@ -107,20 +99,39 @@ input {
   color: white;
 }
 
+/* TABS */
+.tabs {
+  margin-top: 70px;
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+
+.tab {
+  padding: 8px 15px;
+  border-radius: 20px;
+  border: none;
+  cursor: pointer;
+}
+
+.tab.active {
+  background: var(--primary);
+  color: white;
+}
+
 /* GRID */
 #container {
-  margin-top: 80px;
   padding: 20px;
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
   gap: 15px;
 }
 
 /* CARD */
 .card {
   background: var(--card);
-  padding: 15px;
-  border-radius: 15px;
+  padding: 12px;
+  border-radius: 12px;
   text-align: center;
   cursor: pointer;
   transition: 0.2s;
@@ -130,15 +141,20 @@ input {
   transform: translateY(-5px);
 }
 
-/* EMOJI */
 .card span {
-  font-size: 30px;
+  font-size: 28px;
 }
 
-/* TEXT */
 .card p {
-  font-size: 13px;
-  margin-top: 8px;
+  font-size: 12px;
+}
+
+/* FAVORITE STAR */
+.star {
+  position: absolute;
+  top: 5px;
+  right: 8px;
+  cursor: pointer;
 }
 
 /* TOAST */
@@ -148,31 +164,17 @@ input {
   right: 20px;
   background: var(--primary);
   color: white;
-  padding: 10px 20px;
+  padding: 10px;
   border-radius: 10px;
   opacity: 0;
-  transition: 0.3s;
 }
 
 #toast.show {
   opacity: 1;
 }
 
-/* FOOTER */
 footer {
   text-align: center;
   padding: 20px;
   font-size: 12px;
-  opacity: 0.7;
-}
-
-/* MOBILE */
-@media(max-width:600px){
-  input {
-    width: 120px;
-  }
-
-  .title {
-    display: none;
-  }
 }
