@@ -1,21 +1,22 @@
 const container = document.getElementById("container");
 const search = document.getElementById("search");
-const category = document.getElementById("category");
-const tabs = document.querySelectorAll(".tabs button");
+const toast = document.getElementById("toast");
+
+let currentCategory = "all";
+let currentTab = "all";
 
 let favorites = JSON.parse(localStorage.getItem("fav")) || [];
 let recent = JSON.parse(localStorage.getItem("recent")) || [];
 
-function display(list){
+/* DISPLAY */
+function display(list) {
+
   container.innerHTML = "";
 
-  if(list.length === 0){
-    container.innerHTML = "<h2>No Data 😔</h2>";
-    return;
-  }
+  list.forEach(e => {
 
-  list.forEach(e=>{
-    if(!e.emoji) return; // FIX EMPTY BUG
+    // 🔥 BUG FIX (NO EMPTY EMOJI)
+    if(!e.emoji || e.emoji === "") return;
 
     const card = document.createElement("div");
     card.className = "card";
@@ -25,7 +26,8 @@ function display(list){
       <p>${e.description}</p>
     `;
 
-    card.onclick = ()=>{
+    /* COPY */
+    card.onclick = () => {
       navigator.clipboard.writeText(e.emoji);
       showToast();
 
@@ -33,45 +35,83 @@ function display(list){
       localStorage.setItem("recent", JSON.stringify(recent.slice(0,20)));
     };
 
+    /* FAVORITE */
+    card.oncontextmenu = (ev) => {
+      ev.preventDefault();
+
+      if(!favorites.find(x=>x.description===e.description)){
+        favorites.push(e);
+        localStorage.setItem("fav", JSON.stringify(favorites));
+      }
+
+      showToast("Saved ⭐");
+    };
+
     container.appendChild(card);
   });
+
 }
 
-function filter(){
-  let data = emojiList;
+/* FILTER */
+function filterEmoji() {
 
-  if(category.value !== "all"){
-    data = data.filter(e=>e.category === category.value);
-  }
+  let list = emojiList;
 
-  if(search.value){
-    data = data.filter(e=>e.description.includes(search.value));
-  }
+  if (currentTab === "favorites") list = favorites;
+  if (currentTab === "recent") list = recent;
 
-  display(data);
+  const text = search.value.toLowerCase();
+
+  list = list.filter(e =>
+    e.emoji &&
+    e.description.toLowerCase().includes(text) &&
+    (currentCategory === "all" || e.category === currentCategory)
+  );
+
+  display(list);
 }
 
-search.oninput = filter;
-category.onchange = filter;
+/* TABS */
+document.querySelectorAll(".tab").forEach(btn => {
+  btn.onclick = () => {
 
-tabs.forEach(btn=>{
-  btn.onclick = ()=>{
-    if(btn.dataset.tab==="favorites") display(favorites);
-    else if(btn.dataset.tab==="recent") display(recent);
-    else display(emojiList);
-  }
+    document.querySelectorAll(".tab").forEach(b=>b.classList.remove("active"));
+    btn.classList.add("active");
+
+    currentTab = btn.dataset.tab;
+    filterEmoji();
+  };
 });
 
-/* THEME */
-document.getElementById("themeToggle").onclick=()=>{
-  document.body.classList.toggle("light");
+/* DROPDOWN */
+dropBtn.onclick = () => {
+  dropMenu.style.display =
+    dropMenu.style.display === "block" ? "none" : "block";
 };
 
+dropMenu.querySelectorAll("div").forEach(item => {
+  item.onclick = () => {
+    currentCategory = item.dataset.cat;
+    dropBtn.innerText = item.innerText;
+    dropMenu.style.display = "none";
+    filterEmoji();
+  };
+});
+
 /* TOAST */
-function showToast(){
-  const t = document.getElementById("toast");
-  t.classList.add("show");
-  setTimeout(()=>t.classList.remove("show"),1000);
+function showToast(msg="Copied ✔") {
+  toast.innerText = msg;
+  toast.classList.add("show");
+  setTimeout(()=>toast.classList.remove("show"),1200);
 }
 
+/* THEME */
+document.getElementById("themeToggle").onclick = () => {
+  document.body.classList.toggle("dark");
+};
+
+/* EVENTS */
+search.addEventListener("input", filterEmoji);
+
+/* INIT */
 display(emojiList);

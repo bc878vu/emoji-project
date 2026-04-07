@@ -1,124 +1,200 @@
 :root {
-  --bg:#0f172a;
-  --card:#1e293b;
-  --text:#fff;
+  --bg: #f8fafc;
+  --card: #ffffff;
+  --text: #1e293b;
+  --primary: #6366f1;
 }
 
-.light {
-  --bg:#f1f5f9;
-  --card:#fff;
-  --text:#000;
+body.dark {
+  --bg: #0f172a;
+  --card: #1e293b;
+  --text: #f1f5f9;
 }
 
 body {
-  margin:0;
-  font-family: system-ui;
+  margin: 0;
+  font-family: 'Inter', sans-serif;
   background: var(--bg);
   color: var(--text);
-  display:flex;
-  min-height:100vh;
 }
 
-/* SIDEBAR */
-.sidebar {
-  width:220px;
-  background:var(--card);
-  padding:20px;
-  display:flex;
-  flex-direction:column;
-  gap:10px;
-  position:fixed;
-  height:100%;
+/* NAVBAR */
+.navbar {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  height: 60px;
+  background: var(--card);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 20px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.05);
+  z-index: 100;
+}
+
+.nav-left button {
+  border: none;
+  background: none;
+  font-size: 18px;
+  cursor: pointer;
+}
+
+.nav-center {
+  display: flex;
+  align-items: center;
+  gap: 8px;
 }
 
 .logo {
-  font-size:30px;
+  font-size: 20px;
 }
 
-.sidebar input,
-.sidebar select {
-  padding:10px;
-  border-radius:10px;
-  border:none;
+.title {
+  font-weight: 600;
 }
 
-.tabs button {
-  width:100%;
-  margin:5px 0;
-  padding:10px;
-  border:none;
-  border-radius:10px;
-  cursor:pointer;
+/* RIGHT */
+.nav-right {
+  display: flex;
+  align-items: center;
+  gap: 10px;
 }
 
-/* MAIN */
-main {
-  margin-left:240px;
-  flex:1;
-  padding:20px;
+input {
+  padding: 8px 12px;
+  border-radius: 20px;
+  border: 1px solid #ddd;
+  width: 180px;
 }
 
+/* DROPDOWN */
+.dropdown {
+  position: relative;
+}
+
+.dropdown button {
+  padding: 8px 12px;
+  border-radius: 20px;
+  border: none;
+  background: var(--primary);
+  color: white;
+  cursor: pointer;
+}
+
+.menu {
+  position: absolute;
+  top: 45px;
+  right: 0;
+  background: var(--card);
+  border-radius: 12px;
+  display: none;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+  overflow: hidden;
+}
+
+.menu div {
+  padding: 10px 15px;
+  cursor: pointer;
+}
+
+.menu div:hover {
+  background: var(--primary);
+  color: white;
+}
+
+/* TABS */
+.tabs {
+  margin-top: 80px;
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+
+.tab {
+  padding: 8px 16px;
+  border-radius: 20px;
+  border: none;
+  cursor: pointer;
+  background: var(--card);
+}
+
+.tab.active {
+  background: var(--primary);
+  color: white;
+}
+
+/* GRID */
 #container {
-  display:grid;
-  grid-template-columns:repeat(auto-fill,minmax(120px,1fr));
-  gap:15px;
+  padding: 20px;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+  gap: 15px;
 }
 
+/* CARD */
 .card {
-  background:var(--card);
-  padding:15px;
-  text-align:center;
-  border-radius:15px;
-  cursor:pointer;
+  background: var(--card);
+  padding: 10px;
+  border-radius: 12px;
+  text-align: center;
+  cursor: pointer;
+  transition: 0.2s;
+  position: relative;
+}
+
+.card:hover {
+  transform: translateY(-5px);
 }
 
 .card span {
-  font-size:28px;
+  font-size: 26px;
 }
 
-footer {
-  position:fixed;
-  bottom:0;
-  left:240px;
-  right:0;
-  background:var(--card);
-  text-align:center;
-  padding:10px;
+.card p {
+  font-size: 11px;
 }
 
 /* TOAST */
 #toast {
-  position:fixed;
-  bottom:30px;
-  left:50%;
-  transform:translateX(-50%);
-  background:#22c55e;
-  color:#fff;
-  padding:10px 20px;
-  border-radius:20px;
-  opacity:0;
-  transition:0.3s;
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background: var(--primary);
+  color: white;
+  padding: 10px;
+  border-radius: 10px;
+  opacity: 0;
 }
 
 #toast.show {
-  opacity:1;
+  opacity: 1;
+}
+
+/* FOOTER (NOT FIXED) */
+footer {
+  text-align: center;
+  padding: 20px;
+  font-size: 12px;
+  margin-top: 40px;
 }
 
 /* MOBILE */
 @media(max-width:768px){
-  .sidebar{
-    position:relative;
-    width:100%;
-    height:auto;
-    flex-direction:row;
-    flex-wrap:wrap;
+
+  .navbar {
+    flex-wrap: wrap;
+    height: auto;
+    padding: 10px;
   }
 
-  main{
-    margin-left:0;
+  .nav-right {
+    width: 100%;
+    justify-content: center;
   }
 
-  footer{
-    left:0;
+  input {
+    width: 100%;
   }
+
 }
