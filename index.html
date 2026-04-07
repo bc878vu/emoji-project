@@ -1,66 +1,50 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-  <meta charset="UTF-8">
-  <title>Emoji SaaS</title>
-
-  <link rel="icon" href="data:,">
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
-
+  <title>EmojiSaaS</title>
   <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
 
-<!-- NAVBAR -->
-<nav class="navbar">
+<!-- SIDE NAVBAR -->
+<div class="sidebar">
 
-  <!-- LEFT -->
-  <div class="nav-left">
-    <button id="themeToggle">🌙</button>
+  <div class="logo">✨</div>
+  <h2>EmojiSaaS</h2>
+
+  <input type="text" id="search" placeholder="Search...">
+
+  <select id="category">
+    <option value="all">All</option>
+    <option value="Smileys & Emotion">Smileys</option>
+    <option value="People & Body">People</option>
+    <option value="Animals & Nature">Nature</option>
+    <option value="Food & Drink">Food</option>
+  </select>
+
+  <div class="tabs">
+    <button data-tab="all">All</button>
+    <button data-tab="favorites">⭐</button>
+    <button data-tab="recent">🕒</button>
   </div>
 
-  <!-- CENTER -->
-  <div class="nav-center">
-    <span class="logo">✨</span>
-    <span class="title">EmojiSaaS</span>
-  </div>
+  <button id="themeToggle">🌙</button>
 
-  <!-- RIGHT -->
-  <div class="nav-right">
-
-    <input type="text" id="search" placeholder="Search emojis..." />
-
-    <div class="dropdown">
-      <button id="dropBtn">All ⌄</button>
-      <div id="dropMenu" class="menu">
-        <div data-cat="all">All</div>
-        <div data-cat="Smileys & Emotion">Smileys</div>
-        <div data-cat="People & Body">People</div>
-        <div data-cat="Animals & Nature">Nature</div>
-        <div data-cat="Food & Drink">Food</div>
-      </div>
-    </div>
-
-  </div>
-
-</nav>
-
-<!-- TABS -->
-<div class="tabs">
-  <button class="tab active" data-tab="all">All</button>
-  <button class="tab" data-tab="favorites">⭐ Favorites</button>
-  <button class="tab" data-tab="recent">🕒 Recent</button>
 </div>
 
 <!-- MAIN -->
-<main id="container"></main>
-
-<!-- TOAST -->
-<div id="toast">Copied ✔</div>
+<main>
+  <div id="container"></div>
+</main>
 
 <footer>
-  <p>© 2026 EmojiSaaS • Built for portfolio 🚀</p>
+  © 2026 EmojiSaaS • 
+  <a href="terms.html">Terms</a> • 
+  <a href="privacy.html">Privacy</a>
 </footer>
+
+<div id="toast">Copied ✅</div>
 
 <script src="emojiList.js"></script>
 <script src="script.js"></script>
