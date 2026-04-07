@@ -1,13 +1,13 @@
 :root {
-  --bg: #f5f7fa;
-  --card: #ffffff;
-  --text: #333;
+  --bg: linear-gradient(135deg, #667eea, #764ba2);
+  --card: rgba(255,255,255,0.1);
+  --text: #fff;
 }
 
-body.dark {
-  --bg: #1e1e2f;
-  --card: #2a2a40;
-  --text: #fff;
+body.light {
+  --bg: #f5f7fa;
+  --card: #fff;
+  --text: #333;
 }
 
 body {
@@ -15,26 +15,18 @@ body {
   font-family: 'Poppins', sans-serif;
   background: var(--bg);
   color: var(--text);
-  transition: 0.3s;
+  transition: 0.4s;
 }
 
-/* HEADER */
-header {
+/* GLASS HEADER */
+.glass {
   position: sticky;
   top: 0;
-  background: rgba(255,255,255,0.6);
-  backdrop-filter: blur(10px);
+  backdrop-filter: blur(20px);
+  background: rgba(255,255,255,0.1);
   padding: 20px;
   text-align: center;
   z-index: 100;
-}
-
-body.dark header {
-  background: rgba(0,0,0,0.5);
-}
-
-h1 {
-  margin: 0 0 10px;
 }
 
 /* CONTROLS */
@@ -45,17 +37,48 @@ h1 {
   flex-wrap: wrap;
 }
 
-input, select, button {
-  padding: 10px;
-  border-radius: 20px;
+input {
+  padding: 12px;
+  border-radius: 30px;
   border: none;
-  outline: none;
+  width: 220px;
+}
+
+/* DROPDOWN */
+.dropdown {
+  position: relative;
+}
+
+.dropdown button {
+  padding: 12px 20px;
+  border-radius: 30px;
+  border: none;
+  cursor: pointer;
+}
+
+.dropdown-menu {
+  position: absolute;
+  top: 50px;
+  background: white;
+  color: black;
+  border-radius: 10px;
+  display: none;
+  overflow: hidden;
+}
+
+.dropdown-menu div {
+  padding: 10px;
+  cursor: pointer;
+}
+
+.dropdown-menu div:hover {
+  background: #eee;
 }
 
 /* GRID */
 #container {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
   gap: 20px;
   padding: 20px;
 }
@@ -63,22 +86,50 @@ input, select, button {
 /* CARD */
 .card {
   background: var(--card);
-  padding: 20px;
+  backdrop-filter: blur(10px);
+  padding: 25px;
   border-radius: 20px;
   text-align: center;
   cursor: pointer;
   transition: 0.3s;
-  box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+  position: relative;
+  overflow: hidden;
 }
 
 .card:hover {
-  transform: translateY(-8px) scale(1.05);
+  transform: translateY(-10px) scale(1.05);
 }
 
-/* EMOJI FIX */
+/* ripple effect */
+.card::after {
+  content: "";
+  position: absolute;
+  width: 100px;
+  height: 100px;
+  background: rgba(255,255,255,0.3);
+  border-radius: 50%;
+  opacity: 0;
+  transform: scale(0);
+}
+
+.card:active::after {
+  opacity: 1;
+  transform: scale(3);
+  transition: 0.4s;
+}
+
+/* EMOJI */
 .card span {
-  font-size: 36px;
-  font-family: "Apple Color Emoji", "Segoe UI Emoji", "Noto Color Emoji", sans-serif;
+  font-size: 40px;
+}
+
+/* PREVIEW */
+#preview {
+  position: fixed;
+  bottom: 20px;
+  left: 20px;
+  font-size: 60px;
+  display: none;
 }
 
 /* TOAST */
@@ -91,9 +142,15 @@ input, select, button {
   padding: 10px 20px;
   border-radius: 10px;
   opacity: 0;
-  transition: 0.3s;
 }
 
 #toast.show {
   opacity: 1;
+}
+
+/* MOBILE */
+@media (max-width: 600px) {
+  input {
+    width: 100%;
+  }
 }

@@ -4,29 +4,30 @@
   <meta charset="UTF-8">
   <title>Emoji Search Pro</title>
 
-  <!-- FIX favicon error -->
   <link rel="icon" href="data:,">
-
-  <!-- Google Font -->
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
 
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-<header>
+<header class="glass">
   <h1>✨ Emoji Search</h1>
 
   <div class="controls">
     <input type="text" id="search" placeholder="Search emojis..." />
-    
-    <select id="category">
-      <option value="all">All</option>
-      <option value="Smileys & Emotion">Smileys</option>
-      <option value="People & Body">People</option>
-      <option value="Animals & Nature">Nature</option>
-      <option value="Food & Drink">Food</option>
-    </select>
+
+    <!-- CUSTOM DROPDOWN -->
+    <div class="dropdown">
+      <button id="dropdownBtn">All ⌄</button>
+      <div class="dropdown-menu" id="dropdownMenu">
+        <div data-cat="all">All</div>
+        <div data-cat="Smileys & Emotion">Smileys</div>
+        <div data-cat="People & Body">People</div>
+        <div data-cat="Animals & Nature">Nature</div>
+        <div data-cat="Food & Drink">Food</div>
+      </div>
+    </div>
 
     <button id="toggleTheme">🌙</button>
   </div>
@@ -34,7 +35,10 @@
 
 <div id="container"></div>
 
-<!-- Toast -->
+<!-- PREVIEW -->
+<div id="preview"></div>
+
+<!-- TOAST -->
 <div id="toast">Copied ✅</div>
 
 <script src="emojiList.js"></script>

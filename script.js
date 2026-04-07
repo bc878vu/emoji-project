@@ -1,10 +1,29 @@
 const container = document.getElementById("container");
 const search = document.getElementById("search");
-const category = document.getElementById("category");
 const toast = document.getElementById("toast");
-const toggleTheme = document.getElementById("toggleTheme");
+const preview = document.getElementById("preview");
 
-// show emojis
+const dropdownBtn = document.getElementById("dropdownBtn");
+const dropdownMenu = document.getElementById("dropdownMenu");
+
+let currentCategory = "all";
+
+/* DROPDOWN */
+dropdownBtn.onclick = () => {
+  dropdownMenu.style.display =
+    dropdownMenu.style.display === "block" ? "none" : "block";
+};
+
+dropdownMenu.querySelectorAll("div").forEach(item => {
+  item.onclick = () => {
+    currentCategory = item.dataset.cat;
+    dropdownBtn.innerText = item.innerText;
+    dropdownMenu.style.display = "none";
+    filterEmoji();
+  };
+});
+
+/* DISPLAY */
 function display(list) {
   container.innerHTML = "";
 
@@ -17,7 +36,17 @@ function display(list) {
       <p>${e.description}</p>
     `;
 
-    // copy emoji
+    /* PREVIEW */
+    card.onmouseenter = () => {
+      preview.style.display = "block";
+      preview.innerText = e.emoji;
+    };
+
+    card.onmouseleave = () => {
+      preview.style.display = "none";
+    };
+
+    /* COPY */
     card.onclick = () => {
       navigator.clipboard.writeText(e.emoji);
       showToast();
@@ -27,42 +56,37 @@ function display(list) {
   });
 }
 
-// toast
-function showToast() {
-  toast.classList.add("show");
-  setTimeout(() => toast.classList.remove("show"), 1500);
-}
-
-// filter
+/* FILTER */
 function filterEmoji() {
   const text = search.value.toLowerCase();
-  const cat = category.value;
 
   const filtered = emojiList.filter(e => {
     const matchText =
       e.description.toLowerCase().includes(text) ||
       e.aliases.join(" ").includes(text);
 
-    const matchCat = cat === "all" || e.category === cat;
+    const matchCat =
+      currentCategory === "all" || e.category === currentCategory;
 
     return matchText && matchCat;
   });
 
-  if (filtered.length === 0) {
-    container.innerHTML = "<h2>No emoji found 😢</h2>";
-  } else {
-    display(filtered);
-  }
+  display(filtered);
 }
 
-// events
-search.addEventListener("input", filterEmoji);
-category.addEventListener("change", filterEmoji);
+/* TOAST */
+function showToast() {
+  toast.classList.add("show");
+  setTimeout(() => toast.classList.remove("show"), 1200);
+}
 
-// dark mode
-toggleTheme.onclick = () => {
-  document.body.classList.toggle("dark");
+/* DARK MODE */
+document.getElementById("toggleTheme").onclick = () => {
+  document.body.classList.toggle("light");
 };
 
-// init
+/* EVENTS */
+search.addEventListener("input", filterEmoji);
+
+/* INIT */
 display(emojiList);
